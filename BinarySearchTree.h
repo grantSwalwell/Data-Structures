@@ -49,45 +49,6 @@ protected:
 		}
 	};
 
-	// make tree NULL
-	void null()
-	{
-		root = NULL;
-		left = NULL;
-		right = NULL;
-	};
-
-	// copy a tree
-	void copy(BinarySearchTree* tree)
-	{ 
-		root = tree->root;
-		cout << "64" << endl;
-		if (left != NULL) left->empty();
-		cout << "66" << endl;
-		left = tree->left;
-		cout << "68" << endl;
-		if (right != NULL) right->empty();
-		cout << "70" << endl;
-		right = tree->right; cout << "72" << endl;
-	};
-
-	// empty out a tree
-	void empty()
-	{
-		cout << "77" << endl;
-		if (root != NULL) delete root;
-		cout << "79" << endl;
-		root = NULL;
-
-		if (left != NULL) delete left;
-
-		left = NULL;
-
-		if (right != NULL) delete right;
-
-		right = NULL;
-	};
-
 	// grow a subtree node
 	BinarySearchTree* grow()
 	{
@@ -101,7 +62,7 @@ protected:
 		return tree;
 	};
 
-	// print method
+	// print method, inorder
 	void print(ostream& os)
 	{
 		// print left
@@ -177,8 +138,6 @@ public:
 		// left and right pointers
 		BinarySearchTree<x>* treeL;
 		BinarySearchTree<x>* treeR;
-
-		cout << "DATA: " << data << ", THE TREE: " << *tree << endl;
 
 		// case 1: tree is empty, throw exception
 		try
@@ -288,8 +247,6 @@ public:
 
 			// remove old node on the right side
 			tree->right->Remove(*(tree->root));
-
-			
 		}
 
 		
