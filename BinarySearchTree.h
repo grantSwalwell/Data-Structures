@@ -77,7 +77,9 @@ protected:
 
 public:
 
-	// Fine node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
+	// git changes
+
+	// Find node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
 	x Find(x& data)
 	{
 		
@@ -102,7 +104,7 @@ public:
 		
 	};
 
-	// insert node into the tree worst case n nodes to inser x O(n) for find = O(n^2)    
+	// insert node into the tree worst case n nodes to insert times O(n) for find = O(n^2)    
 	void Insert(x& data)
 	{
 		// get the tree to insert into
