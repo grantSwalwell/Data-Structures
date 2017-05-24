@@ -172,6 +172,12 @@ public:
 
 	};
 
+	// is empty
+	bool empty()
+	{
+		return info == NULL;
+	}
+
 	// cout << operator override
 	friend ostream& operator<< (ostream& os, LinkedList& ll)
 	{

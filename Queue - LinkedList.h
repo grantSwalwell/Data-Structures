@@ -55,6 +55,12 @@ public:
 		return (*queue)[queue->size() - 1];
 	};
 
+	// is empty
+	bool empty()
+	{
+		return queue->empty();
+	}
+
 	// print method
 	ostream& print(ostream& os)
 	{
