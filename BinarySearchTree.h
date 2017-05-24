@@ -7,6 +7,8 @@ class BinarySearchTreeException : public exception {};
 class BinarySearchTreeNotFound : public BinarySearchTreeException {} notFound;
 class BinarySearchTreeEmpty : public BinarySearchTreeException {} emptyTree;
 
+
+
 template <class x> class BinarySearchTree 
 {
 
@@ -77,7 +79,9 @@ protected:
 
 public:
 
-	// Fine node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
+
+
+	// Find node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
 	x Find(x& data)
 	{
 		
