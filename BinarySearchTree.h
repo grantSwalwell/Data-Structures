@@ -69,7 +69,7 @@ protected:
 
 		// if root is not null output it
 		if (root == NULL) return;
-		else os << *root << endl;
+		else os << *root << " ";
 
 		// print right
 		if (right != NULL) right->print(os);
@@ -78,7 +78,7 @@ protected:
 public:
 
 	// get root
-	x Root() { return *info; };
+	x Root() { return *root; };
 
 	// get left
 	BinarySearchTree* Left() { return left; };

@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Data-Structures\BinarySearchTree.h"
-#include "Data-Structures\Queue - LinkedList.h"
+#include "BinarySearchTree.h"
+#include "Queue - LinkedList.h"
 
 using namespace std;
 
@@ -33,22 +33,33 @@ protected:
 		BinarySearchTree<x>* node = tree;
 
 		// get pointers to left and right
-		BinarySearchTree<x>* left = node;
-		BinarySearchTree<x>* right = node;
+		BinarySearchTree<x>* left;
+		BinarySearchTree<x>* right;
 
 		// while preorder is not empty
 		while (!preorder->empty())
 		{
+			// dequeue next node
 			node = preorder->dequeue();
 
-			//left = node->Left();
+			// push onto queue
+			queue->push(node);
 
-			//right = node->Right();
+			// if left subtree is not empty add it to queue
+			if (!node->Left()->Empty())
+			{
+				left = node->Left();
 
-			//queue->push(left);
+				preorder->push(left);
+			}
 
-			//queue->push(right);
+			// same for right
+			if (!node->Right()->Empty())
+			{
+				right = node->Right();
 
+				preorder->push(right);
+			}
 		}
 
 
@@ -60,19 +71,42 @@ protected:
 		// call enumerate
 		enumerate();
 
-		// for each level
-		for (int i = 0; i < levels + (levels - 1); i++)
+		// set level
+		level = 0;
+
+		BinarySearchTree<int>* node = queue->front();
+
+		while (!queue->empty())
 		{
-			if (true) {};
+			cout << (*queue->front()) << endl;
+
+			queue->dequeue();
+		};
+
+
+		return;
+
+		// for each level
+		for (int i = 0; i < levels; i++)
+		{
+			node = queue->front();
+
+			while (node->Height() == levels - i)
+			{
+				os << node->Root() << " ";
+
+				queue->dequeue();
+
+				node = queue->front();
+			};
 
 
 
+			
+
+			os << endl;
 		}
 
-
-
-
-		os << *tree << endl;
 	};
 
 
