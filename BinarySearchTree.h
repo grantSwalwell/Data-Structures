@@ -77,7 +77,14 @@ protected:
 
 public:
 
-	// git changes
+	// get root
+	x Root() { return *info; };
+
+	// get left
+	BinarySearchTree* Left() { return left; };
+
+	// get right
+	BinarySearchTree* Right() { return right; };
 
 	// Find node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
 	x Find(x& data)
