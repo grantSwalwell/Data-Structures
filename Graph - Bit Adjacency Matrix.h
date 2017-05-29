@@ -21,6 +21,8 @@ class Graph
 		// unfortunately I think this is n^3 but for a small number.... n * (n / 8) * 8 = n^2???
 		for (int i = 0; i < n; i++)
 		{ 
+			if (i < 10) os << " ";
+
 			os << i << ": ";
 
 			for (int j = 0; j < size; j++)
@@ -112,10 +114,22 @@ public:
 	}
 
 	// turns an edge off
-	void off(int  node0, int node1)
+	void off (int  node0, int node1)
 	{
+		// check to make sure we are removing edges that exist, return if false
+		if (!edge (node0, node1))
+		{
+			return;
+		}
 
-	}
+		// turn off the first edge
+
+		(*mat)[node1][node0 / 8] = (*mat)[node1][node0 / 8] ^ (1 << node0 % 8);
+
+		// turn off the reverse edge
+
+		(*mat)[node0][node1 / 8] = (*mat)[node0][node1 / 8] ^ (1 << node1 % 8);
+	};
 
 	// get node, corresponding to a row in the matrix
 	Array<unsigned char>& operator[](int index)
