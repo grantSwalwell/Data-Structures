@@ -161,11 +161,11 @@ public:
 		os << (*this->info) << endl;
 
 		// if there is a next link
-		//if (this->next != NULL)
-		//{
+		if (this->next != NULL)
+		{
 			// print the next link, recursive
-			//this->next->print(os);
-		//}
+			this->next->print(os);
+		}
 
 		// return the ostream
 		return os;
