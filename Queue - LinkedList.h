@@ -15,9 +15,9 @@ private:
 
 	// the ll acting as the queue 
 	LinkedList<x>* queue;
-
-	// index to back of queue
-	int last;
+		
+	// end of the line
+	LinkedList<x>* end;
 
 	// print method
 	ostream& print(ostream& os)
@@ -35,10 +35,24 @@ public:
 	void push(x& X)
 	{
 		// insert at the back
-		queue->insert(last, X);
-
-		// increment last 
-		last++;
+		//queue->insert(last, X);
+		if (queue->empty())         // if the queue is empty add element, set end to queue
+		{
+			// add to empty LL
+			queue->add(X);
+			
+			// queue is the new end
+			end = queue;
+		}
+		else // else set next of end to be a new LL element, set end to end->next for new end
+		{
+			// set new element
+			end->next = new LinkedList<x>(X);
+			
+			// set new end
+			end = end->next;
+		};
+				
 	};
 
 	// dequeue the front of the queue 
@@ -48,10 +62,7 @@ public:
 		{
 			// if queue is empty throw exception
 			if (queue->info == NULL) throw underflow;
-
-			// decrement last position in ll
-			last-- ;
-
+						
 			// remove from the front
 			return queue->remove();
 
@@ -94,10 +105,18 @@ public:
 	};
 
 	// default constructor
-	Queue() { queue = new LinkedList<x>; last = 0; };
+	Queue()
+	{
+		queue = new LinkedList<x>; 
+		end = queue;
+	};
 
 	// copy constructor
-	Queue(Queue& queue) { this->queue = queue.queue; last = 0; };
+	Queue(Queue& queue)
+	{
+		this->queue = queue.queue; 
+		end = queue.end;
+	};
 
 	// destructor
 	~Queue() { delete queue; }
