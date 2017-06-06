@@ -1,7 +1,5 @@
 #pragma once
-#include <iostream>
-#include "Array.h"
-#include "Binary Search.h"
+#include "Abstract Heap.h"
 
 // Implementation of a priority tree with an array
 // I would have used array binary tree but I had to make that one
@@ -9,103 +7,40 @@
 // a lot of refactoring anyway, array BT uses a node class as well
 // which is unnecessary for this data structure
 
-template <class x> class Heap
+template <class x> class Heap : public AbstractHeap<x>
 {
 
 protected:
-
-	// size of the heap
-	int size;
-
-	// array holding our data
-	Array<x>* heap;
-
-
-	// Heapify, reheaps the data structure to satisfy ordering properties
-	// values descend, root is max, leaves are smallest
-	void Heapify(int index)
-	{
-
-	};
-
-	// Swap values
-	void Swap(int index1, int index2)
-	{
-
-	};
-
-	// Remove value helper method
-	void Remove(int index)
-	{
-
-	};
-
-	// helper method for ostream
-	ostream& print(ostream& os)
-	{
-		os << *heap << endl;
-
-		return os;
-	};
-
+	
 
 public:
 
 	// insert value into heap
 	void Insert(x& data)
 	{
-
+		// for a max heap pass true to insert
+		insert(data, true);
 	};
 
-	// delete max value
-	x Delete()
+	// heapify
+	void Heapify(int index)
 	{
-
+		heapify(index, true);
 	};
 
-	// ostream operator
-	friend ostream& operator<<(ostream& os, Heap<x>& heap)
+	// get max value
+	x Max()
 	{
-		return heap.print(os);
-	}
+		return (*heap)[0];
+	};
 
 	// default constructor
-	Heap()
-	{
-		size = 0;
-		heap = NULL;
-	};
+	Heap() : AbstractHeap() {};
 
 	// initializer
-	Heap(int size)
-	{
-		this->size = 0;
-		heap = new Array<x>(size);
-	};
+	Heap(int size) : AbstractHeap(size) {};
 
-	// array initializer
-	Heap(Array<x>& data)
-	{
-		size = data.size;
-		heap = &data;
-	};
-
-	// array pointer initializer
-	Heap(Array<x>* data)
-	{
-		size = data->size;
-		heap = data;
-	}
-
-	~Heap()
-	{
-		if (heap != NULL)
-		{
-			delete heap;
-			heap = NULL;
-		}
-	};
-
-
+	// deconstructor
+	~Heap() { ~AbstractHeap(); };
 
 };
