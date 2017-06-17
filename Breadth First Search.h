@@ -1,6 +1,6 @@
 #include "Array.h"
 #include <queue>
-#include "Graph - Bit Adjacency Matrix.h"
+#include "Graph - Adjacency Matrix.h"
 
 // Breadth First Search
 Array<int>* BFS(Graph& G, int node)
@@ -68,4 +68,4 @@ Array<int>* BFS(Graph& G, int node)
 
 
 	return BFSvals;
-};v
+};

@@ -1,5 +1,5 @@
 #include "Array.h"
-#include "Graph - Bit Adjacency Matrix.h"
+#include "Graph - Adjacency Matrix.h"
 
 // Depth First Search recursive helper method
 void DFS(Graph& G, int v0, Array<bool>* visited, Array<int>* search, int depth)
