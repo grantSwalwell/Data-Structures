@@ -158,7 +158,8 @@ public:
 	ostream& print (ostream& os)
 	{
 		// send this info to ostream
-		os << (*this->info) << endl;
+		if (info != NULL) os << (*this->info) << " ";
+		else os << "NULL ";
 
 		// if there is a next link
 		if (this->next != NULL)
