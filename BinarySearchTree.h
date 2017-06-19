@@ -86,6 +86,22 @@ public:
 	// get right
 	BinarySearchTree* Right() { return right; };
 
+	// set left
+	BinarySearchTree* Left(BinarySearchTree* left)
+	{
+		this->left = left;
+
+		return this->left;
+	};
+
+	// set right
+	BinarySearchTree* Right(BinarySearchTree* right)
+	{
+		this->right = right;
+
+		return this->right;
+	};
+
 	// Find node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
 	x Find(x& data)
 	{
@@ -346,24 +362,6 @@ public:
 	// assignment operator
 	BinarySearchTree& operator=(BinarySearchTree& tree)
 	{
-		// delete old data to prevent memory leaks
-		if (root != NULL)
-		{
-			delete root;
-			root = NULL;
-		};
-
-		if (left != NULL)
-		{
-			delete left;
-			left = NULL;
-		};
-
-		if (right != NULL)
-		{
-			delete right;
-			right = NULL;
-		};
 
 		// assign new data
 		root = tree.root;
@@ -417,7 +415,7 @@ public:
 	};
 
 	// destructor
-	~BinarySearchTree()
+	virtual ~BinarySearchTree()
 	{
 		if (root != NULL)
 		{
