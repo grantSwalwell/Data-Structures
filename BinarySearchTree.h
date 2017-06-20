@@ -48,6 +48,16 @@ protected:
 		}
 	};
 
+	// swap root with other root
+	void swap(BinarySearchTree* tree)
+	{
+		x temp = tree->Root();
+
+		tree->Root(Root());
+
+		Root(temp);
+	}
+
 	// grow a subtree node
 	BinarySearchTree* grow()
 	{
@@ -81,9 +91,9 @@ public:
 	x Root() { return *root; };
 
 	// get root
-	x Root(x* root)
+	x Root(x root)
 	{
-		this->root = root;
+		(*this->root) = root;
 
 		return (*this->root);
 	};

@@ -5,13 +5,13 @@ using namespace std;
 // abstract base class for red black/ AVL trees
 // extends binary search tree
 
-template <class x> class BalanceTree : virtual public BinarySearchTree<x>
+template <class x> class BalanceTree : public BinarySearchTree<x>
 {
 
 protected:
 
 	// zig, clockwise rotation, constant time
-	void zig()
+	virtual void zig()
 	{
 		// nothing to rotate in an empty tree
 		if (this->Empty()) return;
@@ -19,6 +19,23 @@ protected:
 		// can't rotate an empty tree to root
 		if (this->left->Empty()) return;
 
+		// get pointer to left child
+		BinarySearchTree<x>* leftChild = this->left;
+
+		// set left to leftChild left
+		this->Left(leftChild->Left());
+
+		// set left child right to left child left
+		leftChild->Left(leftChild->Right());
+
+		// set right to left child right
+		leftChild->Right(this->Right());
+
+		// set left child to right
+		this->Right(leftChild);
+
+		// swap root and right
+		this->swap(leftChild);
 	};
 
 	// zag, counter clockwise
@@ -33,8 +50,8 @@ protected:
 		// get pointer to right child and left child
 		BinarySearchTree<x>* rightChild = this->right;
 		
-		// set right to right right
-		this->right = rightChild->Right();
+		// set right to right child right
+		this->Right(rightChild->Right());
 
 		// set rightchild right to rightchild left
 		rightChild->Right(rightChild->Left());
@@ -46,22 +63,49 @@ protected:
 		this->Left(rightChild);
 
 		// swap root with new left root
-		x leftRoot = rightChild->Root();
-		rightChild->Root(this->root);
-		(*this->root) = leftRoot;
+		this->swap(rightChild);
 	};
 
 	// zig zag
-	void zigzag() {};
+	virtual void zigzag()
+	{	
+		// can't rotate null to root
+		if (this->Empty()) return;
+
+		//call zig on right
+		((BalanceTree<x>*) left)->zag();
+
+		// call zag
+		zig();
+
+	};
 
 	// zag zig
-	void zagzig() {};
+	virtual void zagzig()
+	{
+		// can't rotate null to root
+		if (this->Empty()) return;
+
+		//call zig on right
+		((BalanceTree<x>*) right)->zig();
+
+		// call zag
+		zag();
+	};
 
 	// zig zig
-	void zigzig() {};
+	virtual void zigzig()
+	{
+		zig();
+		zig();
+	};
 
 	// zag zag
-	void zagzag() {};
+	virtual void zagzag() 
+	{
+		zag();
+		zag();
+	};
 
 	// override of grow
 	BinarySearchTree<x>* grow()
@@ -80,7 +124,19 @@ public:
 
 	void Balance()
 	{
+		//zag();
+		zig();
+		zig();
 		zag();
+		zag();
+		//zig();
+		//zig();
+		//zag();
+
+		zagzag();
+		zigzig();
+		//zagzag();
+		
 	}
 
 	BalanceTree& operator=(BalanceTree& tree)
