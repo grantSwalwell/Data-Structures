@@ -11,7 +11,15 @@ template <class x> class BalanceTree : virtual public BinarySearchTree<x>
 protected:
 
 	// zig, clockwise rotation, constant time
-	void zig() {};
+	void zig()
+	{
+		// nothing to rotate in an empty tree
+		if (this->Empty()) return;
+
+		// can't rotate an empty tree to root
+		if (this->left->Empty()) return;
+
+	};
 
 	// zag, counter clockwise
 	virtual void zag() 
@@ -23,38 +31,24 @@ protected:
 		if (this->right->Empty()) return;
 
 		// get pointer to right child and left child
-		BalanceTree<x>* rightChild = dynamic_cast<BalanceTree<x>*>(this->right);
-		BalanceTree<x>* leftChild = dynamic_cast<BalanceTree<x>*>(this->left);
-
-		cout << "HERE" << endl;
-
+		BinarySearchTree<x>* rightChild = this->right;
+		
 		// set right to right right
 		this->right = rightChild->Right();
-
-		cout << "HERE" << endl;
 
 		// set rightchild right to rightchild left
 		rightChild->Right(rightChild->Left());
 
-		cout << "HERE" << endl;
-
 		// set rightchild left to this left
 		rightChild->Left(this->Left());
-
-		cout << "HERE" << endl;
 		
 		// set left to rightchild
 		this->Left(rightChild);
-		
-		
-		cout << "HERE" << endl;
-
 
 		// swap root with new left root
-		x* leftRoot = rightChild->root;
-		rightChild->root = this->root;
-		this->root = leftRoot;
-
+		x leftRoot = rightChild->Root();
+		rightChild->Root(this->root);
+		(*this->root) = leftRoot;
 	};
 
 	// zig zag

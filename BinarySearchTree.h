@@ -80,6 +80,14 @@ public:
 	// get root
 	x Root() { return *root; };
 
+	// get root
+	x Root(x* root)
+	{
+		this->root = root;
+
+		return (*this->root);
+	};
+
 	// get left
 	BinarySearchTree* Left() { return left; };
 
