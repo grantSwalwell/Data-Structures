@@ -161,7 +161,12 @@ public:
 	};
 
 	// default constructor
-	Graph() {};
+	Graph() 
+	{
+		n = 0;
+		size = 0;
+		mat = NULL;
+	};
 
 	// initializer
 	Graph(int nodes)
@@ -193,5 +198,13 @@ public:
 	};
 
 	// destructor
+	~Graph()
+	{
+		if (mat != NULL)
+		{
+			delete mat;
+			mat = NULL;
+		};
+	};
 
 };

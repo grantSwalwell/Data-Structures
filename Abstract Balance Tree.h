@@ -133,9 +133,9 @@ public:
 		//zig();
 		//zag();
 
-		zagzag();
-		zigzig();
 		//zagzag();
+		zigzig();
+		zagzag();
 		
 	}
 
