@@ -155,7 +155,7 @@ public:
 	};
 
 	// destructor
-	~Vector () { Array::~Array (); };
+	~Vector () { };
 
 	
 

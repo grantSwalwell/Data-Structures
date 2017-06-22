@@ -59,13 +59,15 @@ protected:
 	}
 
 	// grow a subtree node
-	BinarySearchTree* grow()
+	virtual BinarySearchTree* grow()
 	{
 		// grow a new tree
 		BinarySearchTree<x>* tree = new BinarySearchTree<x>;
 
 		// specify it as a subtree
 		tree->subtree = true;
+
+		cout << "BST GROW" << endl;
 
 		// return the tree
 		return tree;
@@ -156,6 +158,8 @@ public:
 		{
 			// set root
 			tree->root = new x(data);
+
+			cout << "INSERT" << endl;
 
 			// grow new subtrees
 			tree->left = grow();
@@ -382,9 +386,9 @@ public:
 	{
 
 		// assign new data
-		root = tree.root;
-		left = tree.left;
-		right = tree.right;
+		root = new x(tree.root);
+		left = new BinarySearchTree<x>(*tree.left);
+		right = new BinarySearchTree<x>(*tree.right);
 
 		return *this;
 	};
@@ -415,8 +419,10 @@ public:
 	};
 
 	// initializer 2
-	BinarySearchTree(x root)
+	BinarySearchTree(x& root)
 	{
+		cout << "BST CONSTRUCTOR" << endl;
+
 		this->root = new x(root);
 		left = grow();
 		right = grow();
@@ -426,9 +432,9 @@ public:
 	// copy constructor
 	BinarySearchTree(BinarySearchTree& tree)
 	{
-		root = tree.root;
-		left = tree.left;
-		right = tree.right;
+		root = new x(tree.root);
+		left = new BinarySearchTree<x>(tree.left);
+		right = new BinarySearchTree<x>(tree.right);
 		subtree = tree.subtree;
 	};
 

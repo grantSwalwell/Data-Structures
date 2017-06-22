@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include "BinarySearchTree.h"
+
+#include <typeinfo>
+
 using namespace std;
 // abstract base class for red black/ AVL trees
 // extends binary search tree
@@ -20,7 +23,9 @@ protected:
 		if (this->left->Empty()) return;
 
 		// get pointer to left child
-		BinarySearchTree<x>* leftChild = this->left;
+		BalanceTree<x>* leftChild = (BalanceTree<x>*) this->left;
+
+		cout << typeid(*leftChild).name() << endl;
 
 		// set left to leftChild left
 		this->Left(leftChild->Left());
@@ -48,7 +53,10 @@ protected:
 		if (this->right->Empty()) return;
 
 		// get pointer to right child and left child
-		BinarySearchTree<x>* rightChild = this->right;
+		//BinarySearchTree<x>* rightChild = this->right;
+		BalanceTree<x>* rightChild = (BalanceTree<x>*) this->right;
+
+		cout << typeid(*rightChild).name() << endl;
 		
 		// set right to right child right
 		this->Right(rightChild->Right());
@@ -73,7 +81,7 @@ protected:
 		if (this->Empty()) return;
 
 		//call zig on right
-		((BalanceTree<x>*) left)->zag();
+		//((BalanceTree<x>*) left)->zag();
 
 		// call zag
 		zig();
@@ -87,7 +95,15 @@ protected:
 		if (this->Empty()) return;
 
 		//call zig on right
-		((BalanceTree<x>*) right)->zig();
+		//((BalanceTree<x>*) this->right)->zig();
+		BalanceTree<x>* tree = (BalanceTree<x>*) this->right;
+		if (tree == NULL) cout << "INVALID" << endl;
+		//cout << *tree << endl << endl;
+
+		//cout << typeid(*tree).name() << endl;
+
+		//tree->zig();
+		//((BalanceTree<x>*) this->right)->zig();
 
 		// call zag
 		zag();
@@ -108,13 +124,15 @@ protected:
 	};
 
 	// override of grow
-	BinarySearchTree<x>* grow()
+	BalanceTree* grow()
 	{
 		// grow a new tree
-		BinarySearchTree<x>* tree = new BalanceTree<x>;
+		BalanceTree<x>* tree = new BalanceTree<x>();
 
 		// specify it as a subtree
-		((BalanceTree<x>*)tree)->subtree = true;
+		tree->subtree = true;
+
+		cout << "BALANCE TREE GROW" << endl;
 
 		// return the tree
 		return tree;
@@ -122,75 +140,50 @@ protected:
 
 public:
 
+
 	void Balance()
 	{
-		//zag();
-		zig();
 		zig();
 		zag();
-		zag();
-		//zig();
-		//zig();
 		//zag();
-
-		//zagzag();
+		//zig();
 		zigzig();
 		zagzag();
-		
+
+		//zagzig();
+		//zigzag();		
 	}
 
 	BalanceTree& operator=(BalanceTree& tree)
 	{
-		this->root = tree.root;
-		this->left = tree.left;
-		this->right = tree.right;
-
-		return *this;
-	}
-
-	BalanceTree& operator=(BinarySearchTree& tree)
-	{
-		this->root = tree.root;
-		this->left = tree.left;
-		this->right = tree.right;
+		this->root = new x(tree.root);
+		this->left = new BalanceTree<x>(*tree.left);
+		this->right = new BalanceTree<x>(*tree.right);
 
 		return *this;
 	}
 
 	// default constructor
-	BalanceTree() : BinarySearchTree() {};
+	BalanceTree() : BinarySearchTree<x>()
+	{
+		cout << typeid(*this).name() << endl;
+	};
 
 	// initializer
-	BalanceTree(x& root) : BinarySearchTree(root) {};
+	BalanceTree(x& root) : BinarySearchTree<x>(root)
+	{
+		cout << typeid(*this).name() << endl;
+	};
 
 	// second initializer
-	BalanceTree(x& root, BalanceTree* left, BalanceTree* right) : BinarySearchTree(root, left, right) {};
+	BalanceTree(x& root, BalanceTree* left, BalanceTree* right) : BinarySearchTree<x>(root, left, right) {};
 
 	// copy constructor
-	BalanceTree(BalanceTree& tree) : BinarySearchTree(tree) {};
+	BalanceTree(BalanceTree& tree) : BinarySearchTree<x>(tree) {};
 
 	// destructor
 	virtual ~BalanceTree() 
 	{
-		if (root != NULL)
-		{
-			delete root;
-		};
-
-		root = NULL;
-
-		if (left != NULL)
-		{
-			delete left;
-		};
-
-		left = NULL;
-
-		if (right != NULL)
-		{
-			delete right;
-		};
-
-		right = NULL;
+		
 	};
 };
