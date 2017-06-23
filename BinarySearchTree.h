@@ -99,25 +99,25 @@ public:
 	};
 
 	// get left
-	BinarySearchTree* Left() { return left; };
+	virtual BinarySearchTree* Left() { return left; };
 
 	// get right
-	BinarySearchTree* Right() { return right; };
+	virtual BinarySearchTree* Right() { return right; };
 
 	// set left
-	BinarySearchTree* Left(BinarySearchTree* left)
+	virtual void Left(BinarySearchTree* left)
 	{
 		this->left = left;
 
-		return this->left;
+		//return this->left;
 	};
 
 	// set right
-	BinarySearchTree* Right(BinarySearchTree* right)
+	virtual void Right(BinarySearchTree* right)
 	{
 		this->right = right;
 
-		return this->right;
+		//return this->right;
 	};
 
 	// Find node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
@@ -146,7 +146,7 @@ public:
 	};
 
 	// insert node into the tree worst case n nodes to insert times O(n) for find = O(n^2)    
-	void Insert(x& data)
+	virtual void Insert(x& data)
 	{
 		// get the tree to insert into
 		BinarySearchTree<x>* tree = find(data);
@@ -172,7 +172,7 @@ public:
 	};
 
 	// remove this node, 4 cases, O(n)
-	void Remove(x& data)
+	virtual void Remove(x& data)
 	{
 		// get the node to remove
 		BinarySearchTree<x>* tree = find(data);
@@ -194,7 +194,6 @@ public:
 		// case 3: two empty subtrees
 		if (tree->left->Empty() && tree->right->Empty())
 		{	 
-
 			// delete root
 			delete tree->root;
 
@@ -220,7 +219,6 @@ public:
 		// case 2: tree has data + 1 empty tree + 1 tree with data, replace this tree with the tree containing data
 		if (tree->left->Empty())
 		{
-
 			// set tree root to right root
 			tree->root = tree->right->root;
 
@@ -234,10 +232,12 @@ public:
 			tree->right = tree->right->right;
 		
 			// make treeR null
-			treeR->null();
+			//treeR->null();
 
 			// delete right
 			delete treeR;
+
+			treeR = NULL;
 
 			// return
 			return;
@@ -246,7 +246,6 @@ public:
 		// case 2:
 		else if (tree->right->Empty())
 		{
-
 			// get pointer to left
 			treeL = tree->left;
 
@@ -260,10 +259,12 @@ public:
 			tree->left = tree->left->left;
 
 			// null left
-			treeL->null();
+			//treeL->null();
 
 			// delete pointer to left	
 			delete treeL;
+
+			treeL = NULL;
 
 			return;
 		}
@@ -271,6 +272,7 @@ public:
 		// case 4: two non empty subtrees
 		else
 		{
+			cout << "case 4" << endl;
 
 			// get pointer to right to go right, treeR = tree.right
 			treeR = tree->right;
@@ -285,14 +287,12 @@ public:
 			}
 
 			// override tree root with treeR root
-			tree->root = treeR->root;
+			tree->Root(treeR->Root());
 
 			// remove old node on the right side
-			tree->right->Remove(*(tree->root));
+			treeR->Remove(*(treeR->root));
 		}
 
-		
-		
 	};
 
 	// contains node or not

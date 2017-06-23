@@ -1,17 +1,23 @@
 #pragma once
 #include <iostream>
+#include "BinarySearchTree.h"
 
 using namespace std;
 // abstract base class for red black/ AVL trees
 
+/*
 class BalanceTreeException : public exception {};
 class BalanceTreeNotFound : public BalanceTreeException {} notFound;
 class BalanceTreeEmpty : public BalanceTreeException {} emptyTree;
+*/
 
-template <class x> class BalanceTree
+
+template <class x> class BalanceTree : public BinarySearchTree<x>
 {
 
 protected:
+
+	/*
 
 	// root data
 	x* root;
@@ -24,6 +30,8 @@ protected:
 
 	// is-a subtree or not
 	bool subtree;
+	
+	*/
 
 	// zig, clockwise rotation, constant time
 	virtual void zig()
@@ -122,6 +130,8 @@ protected:
 		zag();
 	};
 
+	/*
+
 	// internal find O(n)
 	BalanceTree* find(x& data)
 	{
@@ -183,16 +193,19 @@ protected:
 		if (right != NULL) right->print(os);
 	};
 
+	*/
+
 public:
 
 
 	void Balance()
 	{
-		zigzag();
-		zagzig();
+		//zigzag();
+		//zagzig();
 			
 	}
 
+	/*
 
 	// get root
 	x Root()
@@ -208,33 +221,40 @@ public:
 		return (*this->root);
 	};
 
+	*/
+
 	// get left
-	BalanceTree* Left()
+	virtual BalanceTree* Left()
 	{
-		return left;
+		return ((BalanceTree<x>*) left);
 	};
 
 	// get right
-	BalanceTree* Right()
+	virtual BalanceTree* Right()
 	{
-		return right;
+		return ((BalanceTree<x>*) right);
 	};
 
+	
 	// set left
-	BalanceTree* Left(BalanceTree* left)
+	void Left(BalanceTree* left)
 	{
 		this->left = left;
 
-		return this->left;
+		//return ((BalanceTree<x>*) this->left);
 	};
 
 	// set right
-	BalanceTree* Right(BalanceTree* right)
+	void Right(BalanceTree* right)
 	{
 		this->right = right;
 
-		return this->right;
+		//return ((BalanceTree<x>*)this->right);
 	};
+
+	
+
+	/*
 
 	// Find node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
 	x Find(x& data)
@@ -261,7 +281,7 @@ public:
 	};
 
 	// insert node into the tree worst case n nodes to insert times O(n) for find = O(n^2)    
-	void Insert(x& data)
+	virtual void Insert(x& data)
 	{
 		// get the tree to insert into
 		BalanceTree<x>* tree = find(data);
@@ -287,7 +307,7 @@ public:
 	};
 
 	// remove this node, 4 cases, O(n)
-	void Remove(x& data)
+	virtual void Remove(x& data)
 	{
 		// get the node to remove
 		BalanceTree<x>* tree = find(data);
@@ -349,7 +369,7 @@ public:
 			tree->right = tree->right->right;
 
 			// make treeR null
-			treeR->null();
+			//treeR->null();
 
 			// delete right
 			delete treeR;
@@ -375,7 +395,7 @@ public:
 			tree->left = tree->left->left;
 
 			// null left
-			treeL->null();
+			//treeL->null();
 
 			// delete pointer to left	
 			delete treeL;
@@ -400,7 +420,7 @@ public:
 			}
 
 			// override tree root with treeR root
-			tree->root = treeR->root;
+			tree->Root(treeR->Root());
 
 			// remove old node on the right side
 			tree->right->Remove(*(tree->root));
@@ -491,6 +511,7 @@ public:
 
 		return os;
 	};
+	*/
 
 	BalanceTree& operator=(BalanceTree& tree)
 	{
@@ -502,35 +523,36 @@ public:
 	}
 
 	// default constructor
-	BalanceTree()
+	BalanceTree() : BinarySearchTree<x>()
 	{
-		root = NULL;
-		left = NULL;
-		right = NULL;
-		subtree = false;
+		//root = NULL;
+		//left = NULL;
+		//right = NULL;
+		//subtree = false;
 	};
 
 	// initializer
-	BalanceTree(x& root)
+	BalanceTree(x& root) : BinarySearchTree<x>(root)
 	{
-		this->root = new x(root);
-		left = grow();
-		right = grow();
+		//this->root = new x(root);
+		//left = grow();
+		//right = grow();
 	};
 
 	// copy constructor
-	BalanceTree(BalanceTree& tree)
+	BalanceTree(BalanceTree& tree) : BinarySearchTree<x>(tree)
 	{
-		root = new x(tree.root);
-		left = new BalanceTree<x>(tree.left);
-		right = new BalanceTree<x>(tree.right);
-		subtree = tree.subtree;
+		//root = new x(tree.root);
+		//left = new BalanceTree<x>(tree.left);
+		//right = new BalanceTree<x>(tree.right);
+		//subtree = tree.subtree;
 	};
 
 
 	// destructor
 	virtual ~BalanceTree()
 	{
+		/*
 		if (root != NULL)
 		{
 			delete root;
@@ -551,6 +573,8 @@ public:
 		};
 
 		right = NULL;
+
+		*/
 	};
 
 
