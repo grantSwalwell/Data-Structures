@@ -188,15 +188,9 @@ public:
 
 	void Balance()
 	{
-		zig();
-		zag();
-		zag();
-		zig();
-		zigzig();
-		zagzag();
-
+		zigzag();
 		zagzig();
-		zigzag();		
+			
 	}
 
 
