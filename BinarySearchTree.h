@@ -37,14 +37,13 @@ protected:
 			if (tree->Empty()) return tree;
 
 			// if tree.root < data return tree.right
-			if (*(tree->root) < data) tree = tree->right;
-			
+			if (tree->Root() < data) { tree = tree->Right(); }
+
 			// or left
-			else if (*(tree->root) > data) tree = tree->left; 
-			
+			else if (tree->Root() > data) {	tree = tree->Left();}
+
 			// else tree = data
 			else return tree; 
-
 		}
 	};
 
@@ -83,6 +82,44 @@ protected:
 
 		// print right
 		if (right != NULL) right->print(os);
+	};
+
+	// make tree NULL
+	void null()
+	{
+		root = NULL;
+		left = NULL;
+		right = NULL;
+	};
+
+	// copy a tree
+	void copy(BinarySearchTree* tree)
+	{
+		root = tree->root;
+
+		if (left != NULL) left->empty();
+
+		left = tree->left;
+
+		if (right != NULL) right->empty();
+
+		right = tree->right;
+	};
+
+	// empty out a tree
+	void empty()
+	{
+		if (root != NULL) delete root;
+
+		root = NULL;
+
+		if (left != NULL) delete left;
+
+		left = NULL;
+
+		if (right != NULL) delete right;
+
+		right = NULL;
 	};
 
 public:
@@ -220,7 +257,8 @@ public:
 		if (tree->left->Empty())
 		{
 			// set tree root to right root
-			tree->root = tree->right->root;
+			//tree->root = tree->right->root;
+			tree->Root(tree->right->Root());
 
 			// set right root to null
 			tree->right->root = NULL;
@@ -232,17 +270,15 @@ public:
 			tree->right = tree->right->right;
 		
 			// make treeR null
-			//treeR->null();
+			treeR->null();
 
 			// delete right
 			delete treeR;
 
-			treeR = NULL;
-
 			// return
 			return;
 		}
-		
+
 		// case 2:
 		else if (tree->right->Empty())
 		{
@@ -250,7 +286,7 @@ public:
 			treeL = tree->left;
 
 			// copy left root to tree root
-			tree->root = tree->left->root;
+			tree->Root(tree->Left()->Root());
 
 			// null out root
 			tree->left->root = NULL;
@@ -259,12 +295,10 @@ public:
 			tree->left = tree->left->left;
 
 			// null left
-			//treeL->null();
+			treeL->null();
 
 			// delete pointer to left	
 			delete treeL;
-
-			treeL = NULL;
 
 			return;
 		}
@@ -272,8 +306,6 @@ public:
 		// case 4: two non empty subtrees
 		else
 		{
-			cout << "case 4" << endl;
-
 			// get pointer to right to go right, treeR = tree.right
 			treeR = tree->right;
 
@@ -290,7 +322,7 @@ public:
 			tree->Root(treeR->Root());
 
 			// remove old node on the right side
-			treeR->Remove(*(treeR->root));
+			tree->Right()->Remove(*(treeR->root));
 		}
 
 	};

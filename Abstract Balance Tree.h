@@ -197,14 +197,6 @@ protected:
 
 public:
 
-
-	void Balance()
-	{
-		//zigzag();
-		//zagzig();
-			
-	}
-
 	/*
 
 	// get root
@@ -235,24 +227,17 @@ public:
 		return ((BalanceTree<x>*) right);
 	};
 
-	
 	// set left
-	void Left(BalanceTree* left)
+	virtual void Left(BalanceTree* left)
 	{
 		this->left = left;
-
-		//return ((BalanceTree<x>*) this->left);
 	};
 
 	// set right
-	void Right(BalanceTree* right)
+	virtual void Right(BalanceTree* right)
 	{
 		this->right = right;
-
-		//return ((BalanceTree<x>*)this->right);
 	};
-
-	
 
 	/*
 

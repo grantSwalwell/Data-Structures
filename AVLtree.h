@@ -109,6 +109,205 @@ protected:
 	// restores AVL invariant
 	void rebalance()
 	{
+		if (bf < -1)
+		{
+			if (Left()->BalanceFactor() <= 0) zig(); // left left
+			
+			else if (Left()->BalanceFactor() > 0) zigzag(); // left right
+		}
+		else if (bf > 1)
+		{
+			if (Right()->BalanceFactor() >= 0) zag(); // right right
+
+			else if (Right()->BalanceFactor() < 0) zagzig(); // right left
+		}
+	}
+
+	void zig()
+	{
+		// check if empty
+		if (Empty()) return;
+
+		// check if left is empty
+		if (left->Empty()) return;
+
+		// get bf for this and left
+		int bfA = bf;
+		int bfB = Left()->BalanceFactor();
+
+		// call zig
+		BalanceTree<x>::zig();
+
+		// update bf
+		if (bfA < 0)
+		{
+			Right()->BalanceFactor(bfA - bfB + 1);
+			bf = bfA + 2;
+		}
+		else
+		{
+			bf = 1 + bfB;
+			Right()->BalanceFactor(1 + bfB);
+		}
+
+	};
+
+	void zag()
+	{
+		// check if empty
+		if (Empty()) return;
+
+		// check if left is empty
+		if (right->Empty()) return;
+
+		// get bf for this and left
+		int bfA = bf;
+		int bfB = Right()->BalanceFactor();
+
+		// call zig
+		BalanceTree<x>::zag();
+
+		// update bf
+		if (bfA < 0)
+		{
+			Left()->BalanceFactor(bfA + bfB - 1);
+			bf = bfA - 2;
+		}
+		else
+		{
+			bf = 1 - bfB;
+			Left()->BalanceFactor(1 - bfB);
+		}
+
+	};
+
+	void remove(x data)
+	{
+		try
+		{
+			if (Empty()) throw notFound;
+		}
+		catch (BinarySearchTreeNotFound e)
+		{
+			cout << "NOT FOUND" << endl;
+			return;
+		}
+
+		// get old bf
+		int oldbf = 0;
+
+		// if root is greater than data go left
+		if (Root() > data)
+		{
+			oldbf = Left()->BalanceFactor();
+			Left()->Remove(data);
+
+			// check if left is now empty or if the height changed
+			if (Left()->Empty() || (Left()->BalanceFactor() != oldbf && Left()->BalanceFactor() == 0))
+			{
+				bf++;
+			}
+		}
+
+		else if (Root() < data)
+		{
+			oldbf = Right()->BalanceFactor();
+			Right()->Remove(data);
+
+			// if right is empty or if the height changed
+			if (Right()->Empty() || (Right()->BalanceFactor() != oldbf && Right()->BalanceFactor() == 0))
+			{
+				bf--;
+			}
+		}
+		else // there is a match
+		{
+			cout << "225\n";
+
+			if (Right()->Empty())
+			{
+				cout << "229\n";
+
+				// get old left
+				AVLtree<x>* oldLeft = Left();
+				delete right; // delete right
+				//delete root; // delete root
+
+				cout << "236\n";
+
+				// copy over left into this tree
+				Root(Left()->Root());
+				cout << "240\n";
+				Left(Left()->Left());
+				Right(Left()->Right());
+
+				cout << "243\n";
+
+				// null old left
+				oldLeft->null();
+
+				cout << "246\n";
+
+				// delete old left
+				delete oldLeft;
+				
+				// set bf
+				bf = 0;
+			}
+
+			else if (Right()->Empty())
+			{
+				cout << "253\n";
+
+				// get old right
+				AVLtree<x>* oldRight = Right();
+				delete left;
+				delete root;		
+
+				// copy over right
+				Root(Right()->Root());
+				Left(Right()->Left());
+				Right(Right()->Right());
+
+				// null old right
+				oldRight->null();
+
+				// delete old right
+				delete oldRight;
+
+				// set bf
+				bf = 0;
+			}
+			else
+			{
+				cout << "272\n";
+
+				// find inorder successor
+				AVLtree<x>* successor = Right();
+
+				while (!successor->Right()->Empty()) successor = successor->Left();
+
+				// delete root
+				delete root;
+
+				// copy over successor root
+				Root(successor->Root());
+
+				// get old bf
+				oldbf = Right()->BalanceFactor();
+
+				// delete inorder successor
+				Right()->Remove(successor->Root());
+
+				// if right is empty the height changed
+				if (Right()->Empty() || (Right()->BalanceFactor() != oldbf && Right()->BalanceFactor() == 0)) bf--;
+
+			}
+		
+			cout << "294\n";
+		}
+
+		rebalance();
 
 	}
 
@@ -124,9 +323,24 @@ public:
 		return ((AVLtree<x>*) right);
 	}
 
+	void Left(AVLtree* left)
+	{
+		this->left = left;
+	}
+
+	void Right(AVLtree* right)
+	{
+		this->right = right;
+	}
+
 	int BalanceFactor()
 	{
 		return bf;
+	}
+
+	void BalanceFactor(int bf)
+	{
+		this->bf = bf;
 	}
 
 	// insert, log base 2 n
@@ -136,9 +350,9 @@ public:
 	};
 
 	// remove, log base 2 n
-	void Remove(x& data)
+	void Remove(x data)
 	{
-
+		remove(data);
 	};
 
 	// default constructor
