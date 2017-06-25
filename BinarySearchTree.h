@@ -71,7 +71,7 @@ protected:
 	};
 
 	// print method, inorder
-	void print(ostream& os)
+	virtual void print(ostream& os)
 	{
 		// print left
 		if (left != NULL) left->print(os);
@@ -85,7 +85,7 @@ protected:
 	};
 
 	// make tree NULL
-	void null()
+	virtual void null()
 	{
 		root = NULL;
 		left = NULL;
@@ -93,21 +93,33 @@ protected:
 	};
 
 	// copy a tree
-	void copy(BinarySearchTree* tree)
+	virtual void copy(BinarySearchTree* tree)
 	{
+		cout << "98\n";
+
 		root = tree->root;
 
-		if (left != NULL) left->empty();
+		cout << "102\n";
+
+		//if (left != NULL) left->empty();
+
+		cout << "106\n";
 
 		left = tree->left;
 
-		if (right != NULL) right->empty();
+		cout << "110\n";
+
+		//if (right != NULL) right->empty();
+
+		cout << "114\n";
 
 		right = tree->right;
+
+		cout << "118\n";
 	};
 
 	// empty out a tree
-	void empty()
+	virtual void empty()
 	{
 		if (root != NULL) delete root;
 
@@ -128,11 +140,9 @@ public:
 	x Root() { return *root; };
 
 	// get root
-	x Root(x root)
+	void Root(x root)
 	{
-		(*this->root) = root;
-
-		return (*this->root);
+		this->root = new x(root);
 	};
 
 	// get left

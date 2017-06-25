@@ -231,15 +231,12 @@ protected:
 				// get old left
 				AVLtree<x>* oldLeft = Left();
 				delete right; // delete right
-				//delete root; // delete root
+				delete root; // delete root
 
 				cout << "236\n";
 
 				// copy over left into this tree
-				Root(Left()->Root());
-				cout << "240\n";
-				Left(Left()->Left());
-				Right(Left()->Right());
+				copy(left);
 
 				cout << "243\n";
 
@@ -255,7 +252,7 @@ protected:
 				bf = 0;
 			}
 
-			else if (Right()->Empty())
+			else if (Left()->Empty())
 			{
 				cout << "253\n";
 
@@ -265,9 +262,7 @@ protected:
 				delete root;		
 
 				// copy over right
-				Root(Right()->Root());
-				Left(Right()->Left());
-				Right(Right()->Right());
+				copy(right);
 
 				// null old right
 				oldRight->null();
@@ -309,6 +304,41 @@ protected:
 
 		rebalance();
 
+	}
+
+	void null()
+	{
+		BalanceTree<x>::null();
+		bf = 0;
+	}
+
+	void empty()
+	{
+		cout << "317\n";
+
+		if (root != NULL) delete root;
+
+		cout << "321\n";
+
+		root = NULL;
+
+		cout << "325\n";
+
+		if (left != NULL) delete left;
+
+		cout << "329\n";
+
+		left = NULL;
+
+		cout << "333\n";
+
+		if (right != NULL) delete right;
+
+		cout << "337\n";
+
+		right = NULL;
+
+		cout << "341\n";
 	}
 
 public:
