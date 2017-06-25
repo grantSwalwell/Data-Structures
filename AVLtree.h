@@ -222,28 +222,18 @@ protected:
 		}
 		else // there is a match
 		{
-			cout << "225\n";
-
 			if (Right()->Empty())
 			{
-				cout << "229\n";
-
 				// get old left
 				AVLtree<x>* oldLeft = Left();
 				delete right; // delete right
 				delete root; // delete root
 
-				cout << "236\n";
-
 				// copy over left into this tree
 				copy(left);
 
-				cout << "243\n";
-
 				// null old left
 				oldLeft->null();
-
-				cout << "246\n";
 
 				// delete old left
 				delete oldLeft;
@@ -254,8 +244,6 @@ protected:
 
 			else if (Left()->Empty())
 			{
-				cout << "253\n";
-
 				// get old right
 				AVLtree<x>* oldRight = Right();
 				delete left;
@@ -275,8 +263,6 @@ protected:
 			}
 			else
 			{
-				cout << "272\n";
-
 				// find inorder successor
 				AVLtree<x>* successor = Right();
 
@@ -295,11 +281,10 @@ protected:
 				Right()->Remove(successor->Root());
 
 				// if right is empty the height changed
-				if (Right()->Empty() || (Right()->BalanceFactor() != oldbf && Right()->BalanceFactor() == 0)) bf--;
+				if (Right()->Empty() || (Right()->BalanceFactor() != oldbf && Right()->BalanceFactor() == 0))
+					bf--;
 
 			}
-		
-			cout << "294\n";
 		}
 
 		rebalance();
@@ -314,31 +299,17 @@ protected:
 
 	void empty()
 	{
-		cout << "317\n";
-
 		if (root != NULL) delete root;
-
-		cout << "321\n";
 
 		root = NULL;
 
-		cout << "325\n";
-
 		if (left != NULL) delete left;
-
-		cout << "329\n";
 
 		left = NULL;
 
-		cout << "333\n";
-
 		if (right != NULL) delete right;
 
-		cout << "337\n";
-
 		right = NULL;
-
-		cout << "341\n";
 	}
 
 public:

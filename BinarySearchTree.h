@@ -95,27 +95,11 @@ protected:
 	// copy a tree
 	virtual void copy(BinarySearchTree* tree)
 	{
-		cout << "98\n";
-
 		root = tree->root;
-
-		cout << "102\n";
-
-		//if (left != NULL) left->empty();
-
-		cout << "106\n";
 
 		left = tree->left;
 
-		cout << "110\n";
-
-		//if (right != NULL) right->empty();
-
-		cout << "114\n";
-
 		right = tree->right;
-
-		cout << "118\n";
 	};
 
 	// empty out a tree
