@@ -7,6 +7,7 @@ class BinarySearchTreeException : public exception {};
 class BinarySearchTreeNotFound : public BinarySearchTreeException {} notFound;
 class BinarySearchTreeEmpty : public BinarySearchTreeException {} emptyTree;
 class BinarySearchTreeNOTBST :public BinarySearchTreeException {} notBST;
+class BinarySearchTreeChangedSubtree : public BinarySearchTreeException {} changedSubtree;
 
 template <class x> class BinarySearchTree 
 {
