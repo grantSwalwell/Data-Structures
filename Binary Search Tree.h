@@ -6,6 +6,7 @@ using namespace std;
 class BinarySearchTreeException : public exception {};
 class BinarySearchTreeNotFound : public BinarySearchTreeException {} notFound;
 class BinarySearchTreeEmpty : public BinarySearchTreeException {} emptyTree;
+class BinarySearchTreeNOTBST :public BinarySearchTreeException {} notBST;
 
 template <class x> class BinarySearchTree 
 {
@@ -127,6 +128,17 @@ public:
 	void Root(x root)
 	{
 		this->root = new x(root);
+
+		// see if the user messed up and violated the BST
+
+		try
+		{
+			if (Root() < left->Root() || Root() > right->Root()) throw notBST;
+		}
+		catch (BinarySearchTreeNOTBST e)
+		{
+			cout << "\nTREE VIOLATED - NOT A BINARY SEARCH TREE\n\n";
+		}
 	};
 
 	// get left
@@ -140,6 +152,17 @@ public:
 	{
 		this->left = left;
 
+		// see if the user messed up and violated the BST
+
+		try
+		{
+			if (Root() < left->Root()) throw notBST;
+		}
+		catch (BinarySearchTreeNOTBST e)
+		{
+			cout << "\nTREE VIOLATED - NOT A BINARY SEARCH TREE\n\n";
+		}
+
 		//return this->left;
 	};
 
@@ -148,7 +171,15 @@ public:
 	{
 		this->right = right;
 
-		//return this->right;
+		try
+		{
+			if (Root() > right->Root()) throw notBST;
+		}
+		catch (BinarySearchTreeNOTBST e)
+		{
+			cout << "\nTREE VIOLATED - NOT A BINARY SEARCH TREE\n\n";
+		}
+
 	};
 
 	// Find node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
