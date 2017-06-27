@@ -6,6 +6,7 @@ using namespace std;
 class BinarySearchTreeException : public exception {};
 class BinarySearchTreeNotFound : public BinarySearchTreeException {} notFound;
 class BinarySearchTreeEmpty : public BinarySearchTreeException {} emptyTree;
+class BinarySearchTreeNOTBST : public BinarySearchTreeException {} NOTBST;
 
 template <class x> class BinarySearchTree 
 {
