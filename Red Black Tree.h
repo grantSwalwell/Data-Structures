@@ -86,26 +86,14 @@ public:
 	}
 
 	// default constructor
-	RedBlack() : BalanceTree<x>()
-	{
-		color = BLACK;
-	}
+	RedBlack() : BalanceTree<x>() { color = BLACK; }
 
 	// initializer
-	RedBlack(x& root) : BalanceTree<x>(root)
-	{
-		color = RED;
-	}
+	RedBlack(x& root) : BalanceTree<x>(root) { color = RED; }
 
 	// copy constructor
-	RedBlack(RedBlack<x>& tree) : BalanceTree<x>(tree)
-	{
-		this->color = tree->Color();
-	}
+	RedBlack(RedBlack<x>& tree) : BalanceTree<x>(tree) { this->color = tree->Color(); }
 
 	// destructor
-	~RedBlack()
-	{
-
-	}
+	~RedBlack() { };
 };

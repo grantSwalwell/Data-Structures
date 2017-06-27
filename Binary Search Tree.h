@@ -76,20 +76,6 @@ protected:
 		return tree;
 	};
 
-	// print method, inorder
-	virtual void print(ostream& os)
-	{
-		// print left
-		if (left != NULL) left->print(os);
-
-		// if root is not null output it
-		if (root == NULL) return;
-		else os << *root << " ";
-
-		// print right
-		if (right != NULL) right->print(os);
-	};
-
 	// make tree NULL
 	virtual void null()
 	{
@@ -123,6 +109,49 @@ protected:
 
 		right = NULL;
 	};
+
+	// print method, inorder
+	virtual void print(ostream& os)
+	{
+		// print left
+		if (left != NULL) left->print(os);
+
+		// if root is not null output it
+		if (root == NULL) return;
+		else os << *root << " ";
+
+		// print right
+		if (right != NULL) right->print(os);
+	};
+
+	// prints tree structure
+	virtual void printTree(ostream& os, int level)
+	{
+		// check if empty
+		if (Empty()) return;
+
+		// print right
+		right->printTree(os, level + 1);
+
+		// output spaces per level
+		for (int i = 0; i < level + 1; i++) os << " ";
+
+		// print this
+		os << " /" << endl;
+		
+		// output spaces per level
+		for (int i = 0; i < level; i++) os << " ";
+
+		os << Root() << endl;
+
+		// output spaces per level
+		for (int i = 0; i < level + 1; i++) os << " ";
+
+		os << " \\" << endl;
+
+		// print left
+		left->printTree(os, level + 1);
+	}
 
 public:
 
@@ -343,12 +372,17 @@ public:
 
 			// override tree root with treeR root
 			tree->Root(treeR->Root());
+<<<<<<< HEAD
 
 			//delete treeL;
 			
 			Right()->Remove((*treeR->root));
-
+=======
 			
+
+>>>>>>> baltree
+
+			Right()->Remove((*treeR->root));
 
 		}
 
