@@ -6,8 +6,12 @@ using namespace std;
 class BinarySearchTreeException : public exception {};
 class BinarySearchTreeNotFound : public BinarySearchTreeException {} notFound;
 class BinarySearchTreeEmpty : public BinarySearchTreeException {} emptyTree;
+<<<<<<< HEAD
 class BinarySearchTreeNOTBST :public BinarySearchTreeException {} notBST;
 class BinarySearchTreeChangedSubtree : public BinarySearchTreeException {} changedSubtree;
+=======
+
+>>>>>>> baltree
 
 template <class x> class BinarySearchTree 
 {
@@ -27,7 +31,7 @@ protected:
 	bool subtree;
 
 	// internal find O(n)
-	BinarySearchTree* find(x& data)
+	BinarySearchTree<x>* find(x& data)
 	{
 		// get this
 		BinarySearchTree<x>* tree = this;
@@ -130,15 +134,21 @@ public:
 	{
 		this->root = new x(root);
 
+<<<<<<< HEAD
 		// see if the user messed up and violated the BST
 
+=======
+>>>>>>> baltree
 		try
 		{
 			if (Root() < left->Root() || Root() > right->Root()) throw notBST;
 		}
 		catch (BinarySearchTreeNOTBST e)
 		{
+<<<<<<< HEAD
 			cout << "\nTREE VIOLATED - NOT A BINARY SEARCH TREE\n\n";
+=======
+>>>>>>> baltree
 		}
 	};
 
@@ -153,8 +163,11 @@ public:
 	{
 		this->left = left;
 
+<<<<<<< HEAD
 		// see if the user messed up and violated the BST
 
+=======
+>>>>>>> baltree
 		try
 		{
 			if (Root() < left->Root()) throw notBST;
@@ -163,8 +176,10 @@ public:
 		{
 			cout << "\nTREE VIOLATED - NOT A BINARY SEARCH TREE\n\n";
 		}
+<<<<<<< HEAD
 
-		//return this->left;
+=======
+>>>>>>> baltree
 	};
 
 	// set right
@@ -180,7 +195,10 @@ public:
 		{
 			cout << "\nTREE VIOLATED - NOT A BINARY SEARCH TREE\n\n";
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> baltree
 	};
 
 	// Find node in the tree O(n) where n is the height of the tree, worst case # of nodes in the tree
