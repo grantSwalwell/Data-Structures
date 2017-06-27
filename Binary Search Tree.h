@@ -71,20 +71,6 @@ protected:
 		return tree;
 	};
 
-	// print method, inorder
-	virtual void print(ostream& os)
-	{
-		// print left
-		if (left != NULL) left->print(os);
-
-		// if root is not null output it
-		if (root == NULL) return;
-		else os << *root << " ";
-
-		// print right
-		if (right != NULL) right->print(os);
-	};
-
 	// make tree NULL
 	virtual void null()
 	{
@@ -118,6 +104,49 @@ protected:
 
 		right = NULL;
 	};
+
+	// print method, inorder
+	virtual void print(ostream& os)
+	{
+		// print left
+		if (left != NULL) left->print(os);
+
+		// if root is not null output it
+		if (root == NULL) return;
+		else os << *root << " ";
+
+		// print right
+		if (right != NULL) right->print(os);
+	};
+
+	// prints tree structure
+	virtual void printTree(ostream& os, int level)
+	{
+		// check if empty
+		if (Empty()) return;
+
+		// print right
+		right->printTree(os, level + 1);
+
+		// output spaces per level
+		for (int i = 0; i < level + 1; i++) os << " ";
+
+		// print this
+		os << " /" << endl;
+		
+		// output spaces per level
+		for (int i = 0; i < level; i++) os << " ";
+
+		os << Root() << endl;
+
+		// output spaces per level
+		for (int i = 0; i < level + 1; i++) os << " ";
+
+		os << " \\" << endl;
+
+		// print left
+		left->printTree(os, level + 1);
+	}
 
 public:
 
@@ -250,8 +279,6 @@ public:
 		// case 2: two empty subtrees
 		if (tree->left->Empty() && tree->right->Empty())
 		{	 
-			cout << "case2\n\n" << "THIS: " << *tree->root << "\n\n";
-
 			// delete root
 			delete tree->root;
 			 
@@ -279,9 +306,6 @@ public:
 		// this tree with the tree containing data
 		if (tree->Left()->Empty() && !tree->Right()->Empty())
 		{
-			cout << "case3\n\n THIS: " << *tree->root << "\n\n RIGHT: " << *tree->right << "\n\n";
-
-
 			treeR = tree->Right();
 
 			tree->copy(treeR);
@@ -296,8 +320,6 @@ public:
 		// case 2:
 		else if (tree->right->Empty() && !tree->Left()->Empty())
 		{
-			cout << "case3.5\n\n THIS: " << *root << "LEFT: " << *left << "\n\n";
-
 			treeL = tree->Left();
 
 			tree->copy(treeL);
@@ -310,10 +332,6 @@ public:
 		// case 4: two non empty subtrees
 		else
 		{
-			cout << "case4\n\n THIS:" << *tree->root << "\n\n LEFT: " << *tree->left << "\n\n RIGHT: " 
-				<< *tree->right
-				<< "\n\n";
-
 			// get pointer to right to go right, treeR = tree.right
 			treeR = tree->right;
 
@@ -326,24 +344,12 @@ public:
 				treeR = treeR->Left();
 			}
 
-			cout << "MIN RIGHT: " << *treeR << "\n\n";
-
 			// override tree root with treeR root
 			tree->Root(treeR->Root());
 			
-			//Right(treeR->Right());
-			
-			//Right()->Remove(*treeR->root);
 
-			//delete treeL;
 
-			if (!treeR->Right()->Empty())
-			{
-				treeR->copy(treeR->Right());
-			}
-			else Right()->Remove((*treeR->root));
-
-			
+			Right()->Remove((*treeR->root));
 
 		}
 
