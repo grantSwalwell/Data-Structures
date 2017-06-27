@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "BinarySearchTree.h"
+#include "Binary Search Tree.h"
 
 using namespace std;
 // abstract base class for red black/ AVL trees
