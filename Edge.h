@@ -22,7 +22,7 @@ class Edge
 protected:
 
 	// weight of the edge
-	unsigned short weight;
+	unsigned short int weight;
 
 	bool inRange()
 	{
