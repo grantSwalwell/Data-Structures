@@ -122,7 +122,6 @@ public:
 	{
 		this->size = size;
 		this->data = new x[size];
-		this->initialize();
 	};
 
 	// initializer
@@ -132,9 +131,20 @@ public:
 		this->data = new x[size];
 
 		for (int i = 0; i < size; i++) this->data[i] = data[i];
-
-		delete data;
 	};
+
+	// initializer 2
+	Array(int size, const x& val)
+	{
+		this->size = size;
+
+		data = new x[size];
+
+		for (int i = 0; i < size; i++)
+		{
+			data[i] = val;
+		}
+	}
 
 	// copy constructor
 	Array(Array& old)
@@ -142,11 +152,13 @@ public:
 		size = old.size; data = new x[size];
 
 		for (int i = 0; i < size; i++) this->data[i] = old.data[i];
-
-		old.~Array();
 	}
 
 	// destructor
-	~Array() { delete data; };
+	~Array()
+	{
+		delete data; 
+		data = NULL;
+	};
 };
 
