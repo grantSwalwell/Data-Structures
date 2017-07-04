@@ -96,24 +96,6 @@ public:
 		else return -1;
 	}
 
-	// NULL initialize data
-	void initialize()
-	{
-		for (int i = 0; i < size; i++) data[i] = NULL;
-	};
-
-	// NULL initialize array
-	void initialize(Array& data)
-	{
-		for (int i = 0; i < data.size; i++) data[i] = NULL;
-	};
-
-	// NULL initialize primitive array
-	void initialize(x* data, int size)
-	{
-		for (int i = 0; i < size; i++) data[i] = NULL;
-	};
-
 	// default constructor
 	Array() { size = 0; this->data = NULL; };
 
