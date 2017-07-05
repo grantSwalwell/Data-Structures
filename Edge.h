@@ -22,11 +22,16 @@ class Edge
 protected:
 
 	// weight of the edge
+<<<<<<< HEAD
 	unsigned short int weight;
+=======
+	char weight;
+
+>>>>>>> workspace
 
 	bool inRange()
 	{
-		return weight > 0 && weight < 65536;
+		return weight > -129 && weight < 128;
 	}
 
 public:
@@ -34,52 +39,58 @@ public:
 	// increment operator
 	int operator++ ()
 	{
-
+		if (weight < 127)
+		{
+			weight = weight | (1 << 1);
+		}
 	};
 
+
+
+
 	// ostream
-	friend ostream& operator<< (ostream& os, Edge& edge)
+	friend ostream& operator<<(ostream& os, Edge& edge)
 	{
 		os << edge.weight;
 		return os;
-	}
+	};
 
 	// assignment operator
 	Edge& operator= (Edge& edge)
 	{
 		this->weight = edge.weight;
-	}
+	};
 
 	// default constructor
 	Edge()
 	{
 		weight = 0;
-	}
+	};
 
 	// initializer
-	Edge(int weight)
+	Edge(char weight)
 	{
 		try
 		{
-			if (weight < 0 || weight > 65535) throw weightException;
+			if (weight < -128 || weight > 127) throw weightException;
 			else this->weight = weight;
 		}
 		catch (EdgeWeightException e)
 		{
-			cout << "OUT OF BOUNDS, WEIGHT GOES 0 TO 65,535\n";
+			cout << "OUT OF BOUNDS, WEIGHT GOES -128 TO 127\n";
 		}
-	}
+	};
 
 	// copy constructor
 	Edge(Edge& edge)
 	{
 		weight = edge.weight;
-	}
+	};
 
 	// destructor
 	~Edge()
 	{
-	}
+	};
 
 
 

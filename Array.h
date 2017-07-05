@@ -13,6 +13,11 @@ class ArrayMemoryException : public ArrayException {};
 template<class x> class Array
 {
 
+protected:
+
+
+
+
 public:
 
 	// data of the array
@@ -37,19 +42,11 @@ public:
 	};
 
 	// overloaded = operator for Array type
-	Array& operator= (Array& data)
+	Array& operator= (const Array& data)
 	{
 		this->size = data.size;
 
 		for (int i = 0; i < this->size; i++) this->data[i] = data[i];
-
-		return *this;
-	};
-
-	// equality operator for assigning primitive arrays
-	Array& operator= (x* data)
-	{
-		for (int i = 0; i < size; i++) this->data[i] = data[i];
 
 		return *this;
 	};
@@ -96,6 +93,10 @@ public:
 		else return -1;
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> workspace
 	// default constructor
 	Array() { size = 0; this->data = NULL; };
 
@@ -131,7 +132,9 @@ public:
 	// copy constructor
 	Array(Array& old)
 	{
-		size = old.size; data = new x[size];
+		size = old.size;
+		
+		data = new x[size];
 
 		for (int i = 0; i < size; i++) this->data[i] = old.data[i];
 	}
