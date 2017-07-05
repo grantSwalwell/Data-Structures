@@ -70,7 +70,7 @@ public:
 		return os;
 	};
 
-	// contains method
+	// contains method                     <-------- REDO WITH BINARY SEARCH
 	bool contains(const x& value)
 	{
 		bool contains = false;
@@ -80,7 +80,7 @@ public:
 		return contains;
 	};
 
-	// get the index for this value
+	// get the index for this value    <-------- REDO WITH BINARY SEARCH
 	int index(const x& value)
 	{
 		if (contains(value))

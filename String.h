@@ -9,10 +9,13 @@ class String : public Array<char>
 
 protected:
 
-	// concatenate string
 
 
 	// get index helper method
+	int index(char& character, int start)
+	{
+		return Array<char>::index(character);
+	}
 
 
 	// print method
@@ -29,6 +32,31 @@ protected:
 
 public:
 
+
+	// concatenate string
+	void concatenate(String& string)
+	{
+		int leng = length();
+		
+		int max = string.length();
+
+		bool overflow = false;
+
+		if (size - 1 < max + leng)
+		{
+			overflow = true;
+			max = size - 1 - leng;
+		}
+
+
+		strncpy(data + leng, string.data, max);
+		
+
+		// null terminate last char
+		data[max + leng] = '\0';
+
+	}
+
 	// get length of string
 	int length() const
 	{
@@ -36,8 +64,16 @@ public:
 	}
 
 	// index position of char
+	int index(char& character)
+	{
+		return index(character, 0);
+	}
 
 	// contains char
+	bool contains(char& character)
+	{
+		return Array<char>::contains(character);
+	}
 
 	// insert character 
 
@@ -46,6 +82,15 @@ public:
 	// get substring
 
 	// addition operator
+	String operator+ (String& string)
+	{
+		String temp(length() + string.length());
+		temp = *this;
+		temp.concatenate(string);
+		return temp;
+
+		//concatenate(string);
+	}
 
 	// subtraction operator
 
