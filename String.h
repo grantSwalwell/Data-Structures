@@ -76,20 +76,50 @@ public:
 	}
 
 	// insert character 
+	void insert(int index, char character)
+	{
+		String s = character;
+
+		if (length() < size - 1)
+		{
+
+		}
+	}
 
 	// remove character
 
 	// get substring
+	String substring(int left, int right)
+	{
+		String sub(right - left + 1);
 
-	// addition operator
+		for (int i = 0; i <= right - left; i++)
+		{
+			int j = left - 1 + i;
+
+			sub[i] = data[j];
+		}
+
+		return sub;
+	}
+
+	// addition operator for string
 	String operator+ (String& string)
 	{
 		String temp(length() + string.length());
 		temp = *this;
 		temp.concatenate(string);
 		return temp;
+	}
 
-		//concatenate(string);
+	// addition operator for char*
+	String operator+ (char* string)
+	{
+		String append(string);
+		String temp(length() + append.length());
+		temp = *this;
+		temp.concatenate(append);
+		return temp;
 	}
 
 	// subtraction operator
@@ -99,6 +129,10 @@ public:
 	// less than operator
 
 	// greater than operator
+
+	// less than or equal to operator
+
+	// greater than or equal to
 
 	// bracket operator
 	char& operator[](int index)
