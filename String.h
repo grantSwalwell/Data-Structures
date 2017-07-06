@@ -79,10 +79,17 @@ public:
 	void insert(int index, char character)
 	{
 		String s = character;
+		
+		int leng = length();
 
-		if (length() < size - 1)
+		// if we have space for the new char
+		if (leng < size - 1)
 		{
+			// move over everything right of index by one
+			for (int i = index; i < size; i++)
+			{
 
+			}
 		}
 	}
 
