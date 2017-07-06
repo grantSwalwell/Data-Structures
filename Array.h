@@ -15,16 +15,48 @@ template<class x> class Array
 
 protected:
 
-
-
-
-public:
-
 	// data of the array
 	x* data;
 
 	// array size
 	int size;
+
+	// print method
+	virtual ostream& print(ostream& os)
+	{
+		// for each element
+		for (int i = 0; i < this->size; i++)
+		{
+			os << (*this)[i] << " ";
+		}
+
+		return os;
+	};
+
+public:
+
+	// contains method                     <-------- REDO WITH BINARY SEARCH
+	bool contains(const x& value)
+	{
+		bool contains = false;
+
+		for (int i = 0; i < this->size; i++) if (this->data[i] == value) contains = true;
+
+		return contains;
+	};
+
+	// get the index for this value    <-------- REDO WITH BINARY SEARCH
+	int index(const x& value)
+	{
+		if (contains(value))
+		{
+			for (int i = 0; i < this->size; i++)
+			{
+				if (data[i] == value) return i;
+			}
+		}
+		else return -1;
+	}
 
 	// square bracket operator override, takes place of get and set
 	x& operator[] (int index) const throw()
@@ -57,42 +89,6 @@ public:
 		// return ostream, call print
 		return output.print(os);
 	};
-
-	// print method
-	virtual ostream& print(ostream& os)
-	{
-		// for each element
-		for (int i = 0; i < this->size; i++)
-		{
-			os << (*this)[i] << " ";
-		}
-
-		return os;
-	};
-
-	// contains method                     <-------- REDO WITH BINARY SEARCH
-	bool contains(const x& value)
-	{
-		bool contains = false;
-
-		for (int i = 0; i < this->size; i++) if (this->data[i] == value) contains = true;
-
-		return contains;
-	};
-
-	// get the index for this value    <-------- REDO WITH BINARY SEARCH
-	int index(const x& value)
-	{
-		if (contains(value))
-		{
-			for (int i = 0; i < this->size; i++)
-			{
-				if (data[i] == value) return i;
-			}
-		}
-		else return -1;
-	}
-
 
 	// default constructor
 	Array() { size = 0; this->data = NULL; };
@@ -139,7 +135,7 @@ public:
 	// destructor
 	~Array()
 	{
-		delete data; 
+		if (data != NULL) delete data; 
 		data = NULL;
 	};
 };

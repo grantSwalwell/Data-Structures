@@ -37,7 +37,7 @@ public:
 	void concatenate(String& string)
 	{
 		int leng = length();
-		
+
 		int max = string.length();
 
 		bool overflow = false;
@@ -50,7 +50,7 @@ public:
 
 
 		strncpy(data + leng, string.data, max);
-		
+
 
 		// null terminate last char
 		data[max + leng] = '\0';
@@ -125,14 +125,34 @@ public:
 	// subtraction operator
 
 	// equality operator
+	bool operator== (String& string)
+	{
+		return strcmp(data, string.data) == 0;
+	}
 
 	// less than operator
+	bool operator< (String& string)
+	{
+		return strcmp(data, string.data) < 0;
+	}
 
 	// greater than operator
+	bool operator> (String& string)
+	{
+		return strcmp(data, string.data) > 0;
+	}
 
 	// less than or equal to operator
+	bool operator<= (String& string)
+	{
+		return strcmp(data, string.data) <= 0;
+	}
 
 	// greater than or equal to
+	bool operator>= (String& string)
+	{
+		return strcmp(data, string.data) >= 0;
+	}
 
 	// bracket operator
 	char& operator[](int index)
