@@ -58,6 +58,7 @@ public:
 	
 	virtual friend ostream& operator<< (ostream& os, AbstractHashTable& table) = NULL
 	{
+		return table.print(os);
 	};
 
 	// destructor

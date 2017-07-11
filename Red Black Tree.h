@@ -3,8 +3,8 @@
 
 using namespace std;
 
-const int RED = 0;
-const int BLACK = 1;
+const short int RED = 0;
+const short int BLACK = 1;
 
 
 template <class x> class RedBlack : public BalanceTree<x>
@@ -13,7 +13,7 @@ template <class x> class RedBlack : public BalanceTree<x>
 protected:
 
 	// color of tree
-	int color;
+	short int color;
 
 	// grow a new tree
 	RedBlack<x>* grow()
