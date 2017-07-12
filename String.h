@@ -211,6 +211,7 @@ public:
 	String(char* data) : Array<char>(strlen(data) + 1)
 	{
 		strcpy(this->data, data);
+		this->data[size - 1] = '\0';
 	}
 
 	// copy constructor
