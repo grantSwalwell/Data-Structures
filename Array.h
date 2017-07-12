@@ -33,27 +33,61 @@ protected:
 		return os;
 	};
 
+	int binarySearch(x* data, x find, int left, int right)
+	{
+		// the result
+		int result = 0;
+
+		// middle index value
+		int mid;
+
+		// middle value
+		x midval;
+
+		// recursive case
+		if (left < right)
+		{
+			// mid = left + right /2
+			mid = (left + right) / 2;
+
+			// middle value is data[mid]
+			midval = data[mid];
+
+			// if find == midval we are done return mid + 1
+			if (find == midval) return mid + 1;
+			else if (midval < find) // if midval < find search upper half
+			{
+				return binarySearch(data, find, mid + 1, right);
+			}
+			else return binarySearch(data, find, left, mid); // else search lower half
+		}
+		else // base case
+		{
+			// if left and right are the same and if data[left] < find, it's position after left, else it is left
+			if (left == right && data[left] < find) result = left + 1;
+			else result = left;
+		}
+
+		return result;
+	}
+
 public:
 
-	// contains method                     <-------- REDO WITH BINARY SEARCH
+	// contains method                  
 	bool contains(const x& value)
 	{
-		bool contains = false;
+		int result = binarySearch(data, value, 0, size - 1) - 1;
 
-		for (int i = 0; i < this->size; i++) if (this->data[i] == value) contains = true;
-
-		return contains;
+		if (data[result] == value) return true;
+		else return false;
 	};
 
-	// get the index for this value    <-------- REDO WITH BINARY SEARCH
+	// get the index for this value  
 	int index(const x& value)
 	{
 		if (contains(value))
 		{
-			for (int i = 0; i < this->size; i++)
-			{
-				if (data[i] == value) return i;
-			}
+			return binarySearch(data, value, 0, size - 1) - 1;
 		}
 		else return -1;
 	}

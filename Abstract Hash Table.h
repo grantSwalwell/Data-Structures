@@ -56,7 +56,7 @@ public:
 	{
 	};
 	
-	virtual friend ostream& operator<< (ostream& os, AbstractHashTable& table) = NULL
+	friend ostream& operator<< (ostream& os, AbstractHashTable& table)
 	{
 		return table.print(os);
 	};
