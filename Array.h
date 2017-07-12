@@ -33,7 +33,9 @@ protected:
 		return os;
 	};
 
-	int binarySearch(x* data, x find, int left, int right)
+public:
+
+	int binarySearch(x find, int left, int right)
 	{
 		// the result
 		int result = 0;
@@ -57,9 +59,9 @@ protected:
 			if (find == midval) return mid + 1;
 			else if (midval < find) // if midval < find search upper half
 			{
-				return binarySearch(data, find, mid + 1, right);
+				return binarySearch(find, mid + 1, right);
 			}
-			else return binarySearch(data, find, left, mid); // else search lower half
+			else return binarySearch(find, left, mid); // else search lower half
 		}
 		else // base case
 		{
@@ -71,15 +73,17 @@ protected:
 		return result;
 	}
 
-public:
-
 	// contains method                  
 	bool contains(const x& value)
 	{
-		int result = binarySearch(data, value, 0, size - 1) - 1;
+		bool result = false;
 
-		if (data[result] == value) return true;
-		else return false;
+		for (int i = 0; i < size; i++)
+		{
+			if (data[i] == value) result = true;
+		}
+
+		return result;
 	};
 
 	// get the index for this value  
@@ -87,7 +91,10 @@ public:
 	{
 		if (contains(value))
 		{
-			return binarySearch(data, value, 0, size - 1) - 1;
+			for (int i = 0; i < size; i++)
+			{
+				if (data[i] == value) return i;
+			}
 		}
 		else return -1;
 	}
