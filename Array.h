@@ -58,10 +58,7 @@ public:
 		else return -1;
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
+
 	// square bracket operator override, takes place of get and set
 	x& operator[] (int index) const throw()
 	{
@@ -93,9 +90,7 @@ public:
 		// return ostream, call print
 		return output.print(os);
 	};
->>>>>>> workspace
 
->>>>>>> workspace
 	// default constructor
 	Array() { size = 0; this->data = NULL; };
 
