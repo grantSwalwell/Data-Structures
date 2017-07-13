@@ -61,15 +61,25 @@ protected:
 		if (color == RED)
 		{
 			// if left or right are red rule violated, switch to black
-			if (Left()->Color() == RED || Right()->Color() == RED) color = BLACK;
+			if (Left()->Color() == RED || Right()->Color() == RED)
+			{
+				color = BLACK;
+
+				cout << "CASE 1: ROOT IS RED SO IS CHILD\n";
+			}
+
 		}
 
 		// if left is red
 		if (Left()->Color() == RED)
 		{
+			cout << "LEFT IS RED\n";
+
 			// if left left is red
 			if (Left()->Left()->Color() == RED)
 			{
+				cout << "LEFT LEFT VIOLATION\n";
+
 				// fix left left violation
 				// if right is also red
 				if (Right()->Color() == RED)
@@ -79,10 +89,14 @@ protected:
 					Right()->Color(BLACK);
 				}
 				else zig();
+
+				return;
 			}
 
 			else if (Left()->Right()->Color() == RED) // left right is red
 			{
+				cout << "LEFT RIGHT VIOLATION\n";
+
 				// fix left right
 				if (Right()->Color() == RED)
 				{
@@ -91,15 +105,20 @@ protected:
 					Right()->Color(BLACK);
 				}
 				else zigzag();
+
+				return;
 			}
 		}
 
 		// if right is red
-		else if (Right()->Color() == RED)
+		if (Right()->Color() == RED)
 		{
-			
+			cout << "RIGHT IS RED\n";
+
 			if (Right()->Right()->Color() == RED)
 			{
+				cout << "RIGHT RIGHT VIOLATION\n";
+
 				// fix right right
 				if (Left()->Color() == RED)
 				{
@@ -108,11 +127,15 @@ protected:
 					Right()->Color(BLACK);
 				}
 				else zag();
+
+				return;
 			}
 
 			// if right left is red
 			else if (Right()->Left()->Color() == RED)
 			{
+				cout << "RIGHT LEFT VIOLATION\n";
+
 				// fix right left
 				if (Left()->Color() == RED)
 				{
@@ -121,6 +144,8 @@ protected:
 					Right()->Color(BLACK);
 				}
 				else zagzig();
+
+				return;
 			}
 		}
 	}
