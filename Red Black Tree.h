@@ -6,7 +6,6 @@ using namespace std;
 const short int RED = 0;
 const short int BLACK = 1;
 
-
 template <class x> class RedBlack : public BalanceTree<x>
 {
 
@@ -25,12 +24,129 @@ protected:
 		return tree;
 	}
 
+	void insert(const x& element)
+	{
+		// empty tree reached
+		if (Empty())
+		{
+			root = new x(element);
+			color = RED;
+			left = grow();
+			right = grow();
+		}
+
+		// check if this = root
+		if (Root() == element)
+		{
+			delete root;
+			root = new x(element);
+		}
+
+		// if this is greater than element go left
+		if (Root() > element) Left()->insert(element);
+
+		// else if this is less than element go right
+		else if (Root() < element) Right()->insert(element);
+
+		RedRule();
+	}
+
+	// apply red condition
+	void RedRule()
+	{
+		// if empty return
+		if (Empty()) return;
+
+		// if red
+		if (color == RED)
+		{
+			// if left or right are red rule violated, switch to black
+			if (Left()->Color() == RED || Right()->Color() == RED) color = BLACK;
+		}
+
+		// if left is red
+		if (Left()->Color() == RED)
+		{
+			// if left left is red
+			if (Left()->Left()->Color() == RED)
+			{
+				// fix left left violation
+				// if right is also red
+				if (Right()->Color() == RED)
+				{
+					color = RED;
+					Left()->Color(BLACK);
+					Right()->Color(BLACK);
+				}
+				else zig();
+			}
+
+			else if (Left()->Right()->Color() == RED) // left right is red
+			{
+				// fix left right
+				if (Right()->Color() == RED)
+				{
+					color = RED;
+					Left()->Color(BLACK);
+					Right()->Color(BLACK);
+				}
+				else zigzag();
+			}
+		}
+
+		// if right is red
+		if (Right()->Color() == RED)
+		{
+			
+			if (Right()->Right()->Color() == RED)
+			{
+				// fix right right
+				if (Left()->Color() == RED)
+				{
+					color = RED;
+					Left()->Color(BLACK);
+					Right()->Color(BLACK);
+				}
+				else zag();
+			}
+
+			// if right left is red
+			else if (Right()->Left()->Color() == RED)
+			{
+				// fix right left
+				if (Left()->Color() == RED)
+				{
+					color = RED;
+					Left()->Color(BLACK);
+					Right()->Color(BLACK);
+				}
+				else zagzig();
+			}
+		}
+	}
+
 public:
 	
 	// get color
 	int Color()
 	{
 		return color;
+	}
+
+	// set color
+	void Color(int color)
+	{
+		this->color = color;
+
+		try
+		{
+			// check for violation
+			if (color != RED && color != BLACK) throw notBST;
+		}
+		catch (BinarySearchTreeNOTBST e)
+		{
+			
+		}
 	}
 
 	// get left
@@ -74,6 +190,12 @@ public:
 			cout << "\nTREE VIOLATED - NOT A BINARY SEARCH TREE\n\n";
 		}
 
+	}
+
+	// insert
+	void Insert(const x& element)
+	{
+		insert(element);
 	}
 
 	// assignment operator
