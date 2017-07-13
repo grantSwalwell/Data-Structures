@@ -36,14 +36,14 @@ protected:
 		}
 
 		// check if this = root
-		if (Root() == element)
+		else if (Root() == element)
 		{
 			delete root;
 			root = new x(element);
 		}
 
 		// if this is greater than element go left
-		if (Root() > element) Left()->insert(element);
+		else if (Root() > element) Left()->insert(element);
 
 		// else if this is less than element go right
 		else if (Root() < element) Right()->insert(element);
@@ -95,7 +95,7 @@ protected:
 		}
 
 		// if right is red
-		if (Right()->Color() == RED)
+		else if (Right()->Color() == RED)
 		{
 			
 			if (Right()->Right()->Color() == RED)
@@ -145,7 +145,7 @@ public:
 		}
 		catch (BinarySearchTreeNOTBST e)
 		{
-			
+			cout << "INVALID COLOR\n";
 		}
 	}
 
