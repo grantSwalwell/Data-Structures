@@ -14,10 +14,13 @@ protected:
 	// color of tree
 	short int color;
 
+	// parent of the tree
+	RedBlack<x>* parent;
+
 	// grow a new tree
 	RedBlack<x>* grow()
 	{
-		RedBlack<x>* tree = new RedBlack<x>;
+		RedBlack<x>* tree = new RedBlack<x>(this);
 
 		tree->subtree = true;
 
@@ -61,136 +64,220 @@ protected:
 			return;
 		}
 
-		
+		// pointers to left and right
+		RedBlack<x>* LEFT = Left();
+		RedBlack<x>* RIGHT = Right();
 
-		// LL violation
-		if (Left()->Color() == RED && Left()->Left()->Color() == RED)
+		// pointer to uncle and grandparent
+		RedBlack<x>* uncle = Uncle();
+		RedBlack<x>* grandparent = Grandparent();
+
+		// CASE 1: parent is null, we are at the root, set it black 
+		if (parent == NULL) color = BLACK;
+
+		// CASE 2: parent is black
+		else if (*parent == BLACK) return;
+
+		// CASE 3: uncle is red, color parent and uncle black, grandparent to red
+		else if (uncle != NULL && *uncle == RED && *parent == RED)
 		{
-			zig();
+			parent->Color(BLACK);
+			
+			uncle->Color(BLACK);
+			
+			grandparent->Color(RED);
+			
+			grandparent->RedRule();
 		}
 
-		// LR violation
-		if (Left()->Color() == RED && Left()->Right()->Color() == RED)
+		// CASE 4: red parent black uncle black grandparent 
+		else if (uncle != NULL && *uncle == BLACK && *parent == RED)
 		{
-			zigzag();
+			cout << "96\n";
+
+			//  grandparent left = parent
+			if (!grandparent->Left()->Empty() && *parent == grandparent->Left())
+			{
+				cout << "101\n";
+
+				// this equal parent left, left left violation
+				if (*this == parent->Left())
+				{
+					zig();
+				}
+
+				// this equal parent right, left right violation
+				else if (*this == parent->Right())
+				{
+					zigzag();
+				}
+			}
+
+			// else if we are grandparent right
+			else if (!grandparent->Right()->Empty() && *parent == grandparent->Right())
+			{
+				cout << "119\n";
+				// this equal parent left, left left violation
+				if (!parent->Left()->Empty() && *this == parent->Left())
+				{
+					cout << "123\n";
+					parent->zag();
+				}
+
+				// this equal parent right, left right violation
+				else if (!parent->Right()->Empty() && *this == parent->Right())
+				{
+					cout << "130\n";
+					grandparent->zagzig();
+				}
+
+			}
 		}
 
-		// RL violation
-		if (Right()->Color() == RED && Right()->Left()->Color() == RED)
-		{
-			zagzig();
-		}
 
-		// RR violation
-		if (Right()->Color() == RED && Right()->Right()->Color() == RED)
-		{
-			zag();
-		}
-		
-		
-		
-		
+
+
+
+
 		/*
-
 		// if red
 		if (color == RED)
 		{
 			// if left or right are red rule violated, switch to black
-			if (Left()->Color() == RED || Right()->Color() == RED)
+			if (*Left() == RED || *Right() == RED)
 			{
 				color = BLACK;
 
-				cout << "CASE 1: ROOT IS RED SO IS CHILD\n";
-			}
-
-
-			// if left is red
-			if (Left()->Color() == RED)
-			{
-				cout << "LEFT IS RED\n";
-
-				// if left left is red
-				if (Left()->Left()->Color() == RED)
-				{
-					cout << "LEFT LEFT VIOLATION\n";
-
-					// fix left left violation
-					// if right is also red
-					if (Right()->Color() == RED)
-					{
-						color = RED;
-						Left()->Color(BLACK);
-						Right()->Color(BLACK);
-					}
-					else zig();
-
-					return;
-				}
-
-				else if (Left()->Right()->Color() == RED) // left right is red
-				{
-					cout << "LEFT RIGHT VIOLATION\n";
-
-					// fix left right
-					if (Right()->Color() == RED)
-					{
-						color = RED;
-						Left()->Color(BLACK);
-						Right()->Color(BLACK);
-					}
-					else zigzag();
-
-					return;
-				}
-			}
-
-			// if right is red
-			if (Right()->Color() == RED)
-			{
-				cout << "RIGHT IS RED\n";
-
-				if (Right()->Right()->Color() == RED)
-				{
-					cout << "RIGHT RIGHT VIOLATION\n";
-
-					// fix right right
-					if (Left()->Color() == RED)
-					{
-						color = RED;
-						Left()->Color(BLACK);
-						Right()->Color(BLACK);
-					}
-					else zagzig();
-
-					return;
-				}
-
-				// if right left is red
-				else if (Right()->Left()->Color() == RED)
-				{
-					cout << "RIGHT LEFT VIOLATION\n";
-
-					// fix right left
-					if (Left()->Color() == RED)
-					{
-						color = RED;
-						Left()->Color(BLACK);
-						Right()->Color(BLACK);
-					}
-					else zag();
-
-					return;
-				}
+				//cout << "CASE 1: ROOT IS RED SO IS CHILD\n";
 			}
 		}
-		*/
-		
 
-		
+
+		if (*Left() == RED && *Right() == BLACK)
+		{
+			//cout << "LEFT RED RIGHT BLACK\n";
+
+			if (*LEFT->Right() == RED)
+			{
+				cout << "LEFT RIGHT IS RED\n";
+
+				zigzag();
+			}
+			else if (*LEFT->Left() == RED)
+			{
+				cout << "LEFT LEFT IS RED\n";
+
+				zig();
+			}
+		}
+		else if (*Left() == BLACK && *Right() == RED)
+		{
+			//cout << "LEFT BLACK RIGHT RED\n";
+
+			if (*RIGHT->Right() == RED)
+			{
+				zagzig();
+			}
+			else if (*RIGHT->Left() == RED)
+			{
+				zag();
+			}
+		}
+		else if (*Left() == RED && *Right() == RED)
+		{
+			cout << "LEFT RED RIGHT RED\n";
+
+			LEFT->Color(BLACK);
+			RIGHT->Color(BLACK);
+			color = RED;
+		}
+		*/
+
+		/*
+		// if left is red
+		if (Left()->Color() == RED)
+		{
+			cout << "LEFT IS RED\n";
+
+			// if left left is red
+			if (Left()->Left()->Color() == RED)
+			{
+				cout << "LEFT LEFT VIOLATION\n";
+
+				// fix left left violation
+				// if right is also red
+				if (Right()->Color() == RED)
+				{
+					color = RED;
+					Left()->Color(BLACK);
+					Right()->Color(BLACK);
+				}
+				else zig();
+
+				return;
+			}
+
+			else if (Left()->Right()->Color() == RED) // left right is red
+			{
+				cout << "LEFT RIGHT VIOLATION\n";
+
+				// fix left right
+				if (Right()->Color() == RED)
+				{
+					color = RED;
+					Left()->Color(BLACK);
+					Right()->Color(BLACK);
+				}
+				else zigzag();
+
+				return;
+			}
+		}
+
+		// if right is red
+		if (Right()->Color() == RED)
+		{
+			cout << "RIGHT IS RED\n";
+
+			if (Right()->Right()->Color() == RED)
+			{
+				cout << "RIGHT RIGHT VIOLATION\n";
+
+				// fix right right
+				if (Left()->Color() == RED)
+				{
+					color = RED;
+					Left()->Color(BLACK);
+					Right()->Color(BLACK);
+				}
+				else zagzig();
+
+				return;
+			}
+
+			// if right left is red
+			else if (Right()->Left()->Color() == RED)
+			{
+				cout << "RIGHT LEFT VIOLATION\n";
+
+				// fix right left
+				if (Left()->Color() == RED)
+				{
+					color = RED;
+					Left()->Color(BLACK);
+					Right()->Color(BLACK);
+				}
+				else zag();
+
+				return;
+			}
+		}
+
+		*/
 	}
 
 public:
-	
+
 	// get color
 	int Color()
 	{
@@ -256,10 +343,55 @@ public:
 
 	}
 
+	// get parent
+	RedBlack<x>* Parent()
+	{
+		return parent;
+	}
+
+	// get grandparent
+	RedBlack<x>* Grandparent()
+	{
+		if (parent != NULL) return parent->Parent();
+		else return NULL;
+	}
+
+	// get uncle
+	RedBlack<x>* Uncle()
+	{
+		RedBlack<x>* grand = Grandparent();
+		
+		// if grandparent is null there is no uncle
+		if (grand == NULL) return NULL;
+		else
+		{
+			if (!grand->Left()->Empty() && grand->Left()->Root() == parent->Root())
+			{
+				return grand->Right();
+			}
+			else return grand->Left();
+		}
+	}
+
+
 	// insert
 	void Insert(const x& element)
 	{
 		insert(element);
+	}
+
+	// color equality operator
+	bool operator== (int color)
+	{
+		if (this->color == color) return true;
+		else return false;
+	}
+
+	// test for root equality
+	bool operator== (RedBlack<x>* tree)
+	{
+		if (Root() == tree->Root()) return true;
+		else return false;
 	}
 
 	// assignment operator
@@ -269,16 +401,36 @@ public:
 		(*this->root) = tree->Root();
 		this->left = tree->Left();
 		this->right = tree->Right();
+		this->parent = tree->Parent();
 	}
 
 	// default constructor
-	RedBlack() : BalanceTree<x>() { color = BLACK; }
+	RedBlack() : BalanceTree<x>()
+	{
+		color = BLACK;
+		parent = NULL;
+	}
+
+	// parent initializer
+	RedBlack(RedBlack<x>* parent) : BalanceTree<x>()
+	{
+		color = BLACK;
+		this->parent = parent;
+	}
 
 	// initializer
-	RedBlack(x& root) : BalanceTree<x>(root) { color = RED; }
+	RedBlack(const x& root) : BalanceTree<x>(root)
+	{
+		color = RED;
+		parent = NULL;
+	}
 
 	// copy constructor
-	RedBlack(RedBlack<x>& tree) : BalanceTree<x>(tree) { this->color = tree->Color(); }
+	RedBlack(RedBlack<x>& tree) : BalanceTree<x>(tree)
+	{
+		this->color = tree->Color();
+		parent = tree.Parent();
+	}
 
 	// destructor
 	~RedBlack() { };
