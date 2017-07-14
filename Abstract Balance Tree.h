@@ -58,7 +58,7 @@ protected:
 		if (this->right->Empty()) return;
 
 		// get pointer to right child
-		BalanceTree<x>* rightChild = (BalanceTree<x>*) this->right;
+		BalanceTree<x>* rightChild = Right();
 
 		// set right to right child right
 		this->Right(rightChild->Right());
@@ -68,12 +68,13 @@ protected:
 
 		// set rightchild left to this left
 		rightChild->Left(this->Left());
-		
+
 		// set left to rightchild
 		this->Left(rightChild);
 
 		// swap root with new left root
 		this->swap(rightChild);
+
 	};
 
 	// zig zag
@@ -159,7 +160,7 @@ public:
 	};
 
 	// initializer
-	BalanceTree(x& root) : BinarySearchTree<x>(root)
+	BalanceTree(const x& root) : BinarySearchTree<x>(root)
 	{
 	};
 

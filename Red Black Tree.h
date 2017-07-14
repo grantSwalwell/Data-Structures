@@ -93,42 +93,37 @@ protected:
 		// CASE 4: red parent black uncle black grandparent 
 		else if (uncle != NULL && *uncle == BLACK && *parent == RED)
 		{
-			cout << "96\n";
 
 			//  grandparent left = parent
 			if (!grandparent->Left()->Empty() && *parent == grandparent->Left())
 			{
-				cout << "101\n";
 
 				// this equal parent left, left left violation
 				if (*this == parent->Left())
 				{
-					zig();
+					parent->zig();
 				}
 
 				// this equal parent right, left right violation
 				else if (*this == parent->Right())
 				{
-					zigzag();
+					parent->zigzag();
 				}
 			}
 
 			// else if we are grandparent right
 			else if (!grandparent->Right()->Empty() && *parent == grandparent->Right())
 			{
-				cout << "119\n";
 				// this equal parent left, left left violation
 				if (!parent->Left()->Empty() && *this == parent->Left())
 				{
-					cout << "123\n";
 					parent->zag();
 				}
 
 				// this equal parent right, left right violation
 				else if (!parent->Right()->Empty() && *this == parent->Right())
 				{
-					cout << "130\n";
-					grandparent->zagzig();
+					parent->zagzig();
 				}
 
 			}

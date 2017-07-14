@@ -50,13 +50,14 @@ protected:
 	};
 
 	// swap root with other root
-	void swap(BinarySearchTree* tree)
+	void swap(BinarySearchTree<x>* tree)
 	{
+
 		x temp = tree->Root();
 
-		tree->Root(Root());
+		*(tree->root) = *root;
 
-		Root(temp);
+		*root = temp;
 	}
 
 	// grow a subtree node
@@ -480,7 +481,7 @@ public:
 	};
 
 	// initializer 2
-	BinarySearchTree(x& root)
+	BinarySearchTree(const x& root)
 	{
 
 		this->root = new x(root);
