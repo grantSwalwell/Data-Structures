@@ -20,16 +20,12 @@ protected:
 	// zig, clockwise rotation, needs to adjust colors
 	void zig()
 	{
-		Color(RED);
-		Left()->Color(BLACK);
 		BalanceTree<x>::zig();
 	}
 
 	// zag, counter clockwise rotation, needs to adjust colors
 	void zag()
 	{
-		Color(RED);
-		Right()->Color(BLACK);
 		BalanceTree<x>::zag();
 	}
 
@@ -39,6 +35,10 @@ protected:
 
 		Left()->zag();
 
+		Color(RED);
+
+		Left()->Color(BLACK);
+
 		zig();
 	}
 
@@ -47,6 +47,10 @@ protected:
 		if (Empty()) return;
 
 		Right()->zig();
+
+		Color(RED);
+
+		Right()->Color(BLACK);
 
 		zag();
 	}
@@ -114,7 +118,7 @@ protected:
 		else if (*parent == BLACK) return;
 
 		// CASE 3: uncle is red, color parent and uncle black, grandparent to red
-		else if (uncle != NULL && *uncle == RED && *parent == RED)
+		if (uncle != NULL && *uncle == RED && *parent == RED)
 		{
 			parent->Color(BLACK);
 			
@@ -125,8 +129,8 @@ protected:
 			grandparent->RedRule();
 		}
 
-		// CASE 4: red parent black uncle black grandparent 
-		else if (uncle != NULL && *uncle == BLACK && *parent == RED)
+		// CASE 4: red parent black uncle, black grandparent 
+		if (uncle != NULL && *uncle == BLACK && *parent == RED)
 		{
 
 			//  grandparent left = parent
@@ -136,8 +140,8 @@ protected:
 				// this equal parent left, left left violation
 				if (!parent->Left()->Empty() && *this == parent->Left())
 				{
-					parent->Color(BLACK);
-					grandparent->Color(RED);
+					//parent->Color(BLACK);
+					//grandparent->Color(RED);
 					grandparent->zig();
 				}
 
@@ -161,8 +165,8 @@ protected:
 				// this equal parent right,  violation
 				else if (!parent->Right()->Empty() && *this == parent->Right())
 				{
-					parent->Color(BLACK);
-					grandparent->Color(RED);
+					//parent->Color(BLACK);
+					//grandparent->Color(RED);
 					grandparent->zag();
 				}
 
@@ -171,7 +175,7 @@ protected:
 
 		}
 
-
+		// CASE 5: 
 
 
 
