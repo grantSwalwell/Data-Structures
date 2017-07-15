@@ -17,6 +17,41 @@ protected:
 	// parent of the tree
 	RedBlack<x>* parent;
 
+	// zig, clockwise rotation, needs to adjust colors
+	void zig()
+	{
+		Color(RED);
+		Left()->Color(BLACK);
+		BalanceTree<x>::zig();
+	}
+
+	// zag, counter clockwise rotation, needs to adjust colors
+	void zag()
+	{
+		Color(RED);
+		Right()->Color(BLACK);
+		BalanceTree<x>::zag();
+	}
+
+	void zigzag()
+	{
+		if (Empty()) return;
+
+		Left()->zag();
+
+		zig();
+	}
+
+	void zagzig()
+	{
+		if (Empty()) return;
+
+		Right()->zig();
+
+		zag();
+	}
+
+
 	// grow a new tree
 	RedBlack<x>* grow()
 	{
@@ -101,6 +136,8 @@ protected:
 				// this equal parent left, left left violation
 				if (!parent->Left()->Empty() && *this == parent->Left())
 				{
+					parent->Color(BLACK);
+					grandparent->Color(RED);
 					grandparent->zig();
 				}
 
@@ -124,6 +161,8 @@ protected:
 				// this equal parent right,  violation
 				else if (!parent->Right()->Empty() && *this == parent->Right())
 				{
+					parent->Color(BLACK);
+					grandparent->Color(RED);
 					grandparent->zag();
 				}
 

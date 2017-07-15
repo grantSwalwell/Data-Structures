@@ -86,7 +86,7 @@ protected:
 		//call zag on left
 		this->Left()->zag();
 
-		// call zag
+		// call zig
 		zig();
 	};
 
