@@ -101,7 +101,7 @@ protected:
 				// this equal parent left, left left violation
 				if (!parent->Left()->Empty() && *this == parent->Left())
 				{
-					parent->zig();
+					grandparent->zig();
 				}
 
 				// this equal parent right, left right violation
@@ -124,7 +124,7 @@ protected:
 				// this equal parent right,  violation
 				else if (!parent->Right()->Empty() && *this == parent->Right())
 				{
-					parent->zag();
+					grandparent->zag();
 				}
 
 
