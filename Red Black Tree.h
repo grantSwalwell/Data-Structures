@@ -71,7 +71,7 @@ protected:
 		// pointer to uncle and grandparent
 		RedBlack<x>* uncle = Uncle();
 		RedBlack<x>* grandparent = Grandparent();
-
+		
 		// CASE 1: parent is null, we are at the root, set it black 
 		if (parent == NULL) color = BLACK;
 
@@ -99,34 +99,37 @@ protected:
 			{
 
 				// this equal parent left, left left violation
-				if (*this == parent->Left())
+				if (!parent->Left()->Empty() && *this == parent->Left())
 				{
 					parent->zig();
 				}
 
 				// this equal parent right, left right violation
-				else if (*this == parent->Right())
+				else if (!parent->Right()->Empty() && *this == parent->Right())
 				{
-					parent->zigzag();
+					grandparent->zigzag();
 				}
+
 			}
 
 			// else if we are grandparent right
 			else if (!grandparent->Right()->Empty() && *parent == grandparent->Right())
 			{
-				// this equal parent left, left left violation
+				// this equal parent right, right left violation
 				if (!parent->Left()->Empty() && *this == parent->Left())
+				{
+					grandparent->zagzig();
+				}
+
+				// this equal parent right,  violation
+				else if (!parent->Right()->Empty() && *this == parent->Right())
 				{
 					parent->zag();
 				}
 
-				// this equal parent right, left right violation
-				else if (!parent->Right()->Empty() && *this == parent->Right())
-				{
-					parent->zagzig();
-				}
 
 			}
+
 		}
 
 
