@@ -134,46 +134,54 @@ protected:
 		{
 
 			//  grandparent left = parent
-			if (!grandparent->Left()->Empty() && *parent == grandparent->Left())
+			if (*parent == grandparent->Left())
 			{
 
-				// this equal parent left, left left violation
-				if (!parent->Left()->Empty() && *this == parent->Left())
-				{
-					//parent->Color(BLACK);
-					//grandparent->Color(RED);
-					grandparent->zig();
-				}
-
 				// this equal parent right, left right violation
-				else if (!parent->Right()->Empty() && *this == parent->Right())
+				if (*this == parent->Right())
 				{
 					grandparent->zigzag();
 				}
 
+				// this equal parent left, left left violation
+				else if (*this == parent->Left())
+				{
+					Color(BLACK);
+					grandparent->Color(RED);
+					grandparent->zig();
+				}
+
+				
+
 			}
 
 			// else if we are grandparent right
-			else if (!grandparent->Right()->Empty() && *parent == grandparent->Right())
+			else if (*parent == grandparent->Right())
 			{
 				// this equal parent right, right left violation
-				if (!parent->Left()->Empty() && *this == parent->Left())
+				if (*this == parent->Left())
 				{
-					grandparent->zagzig();
+					parent->zagzig();
 				}
 
 				// this equal parent right,  violation
-				else if (!parent->Right()->Empty() && *this == parent->Right())
+				if (*this == parent->Right())
 				{
-					//parent->Color(BLACK);
-					//grandparent->Color(RED);
+					Color(BLACK);
+					grandparent->Color(RED);
 					grandparent->zag();
 				}
 
 
 			}
 
-		}
+			grandparent->RedRule();
+
+		} 
+		else return;
+
+
+
 
 		// CASE 5: 
 
@@ -431,7 +439,8 @@ public:
 	// test for root equality
 	bool operator== (RedBlack<x>* tree)
 	{
-		if (Root() == tree->Root()) return true;
+		if (tree == NULL || (tree->Empty() && !Empty())) return false;
+		else if (Root() == tree->Root()) return true;
 		else return false;
 	}
 
@@ -474,5 +483,9 @@ public:
 	}
 
 	// destructor
-	~RedBlack() { };
+	~RedBlack()
+	{
+		if (parent != NULL) delete parent;
+		parent = NULL;
+	};
 };
