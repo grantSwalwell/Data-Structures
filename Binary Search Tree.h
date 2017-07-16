@@ -435,6 +435,51 @@ public:
 		return n;
 	};
 
+	// greater than operator
+	bool operator> (BinarySearchTree<x>* tree)
+	{
+		if (!Empty() && !tree->Empty()) return *root > tree->Root();
+		else if (!Empty() && tree->Empty()) return true;
+		else if (Empty() && !tree->Empty()) return false;
+	}
+
+	// less than operator
+	bool operator< (BinarySearchTree<x>* tree)
+	{
+		if (!Empty() && !tree->Empty()) return *root < tree->Root();
+		else if (!Empty() && tree->Empty()) return true;
+		else if (Empty() && !tree->Empty()) return false;
+	}
+
+	// equal to operator
+	bool operator== (BinarySearchTree<x>* tree)
+	{
+		if (Empty() && tree->Empty()) return true;
+		else if (!Empty() && !tree->Empty()) return *root == tree->Root();
+		else return false;
+	}
+
+	// greater than operator
+	bool operator> (const x& data)
+	{
+		if (!Empty()) return *root > data;
+		else return false;
+	}
+
+	// less than operator
+	bool operator< (const x& data)
+	{
+		if (!Empty()) return *root < data;
+		else  return false;
+	}
+
+	// equal to operator
+	bool operator== (const x& data)
+	{
+		if (!Empty()) return *root == data;
+		else return false;
+	}
+
 	// output operator
 	friend ostream& operator<<(ostream& os, BinarySearchTree& tree)
 	{
@@ -506,7 +551,7 @@ public:
 		{
 			delete root;
 		};
-
+		
 		root = NULL;
 
 		if (left != NULL)
