@@ -3,8 +3,16 @@
 
 using namespace std;
 
-const short int RED = 0;
-const short int BLACK = 1;
+// enumerator for color
+enum Color
+{
+	RED, 
+	BLACK,
+};
+
+
+//const short int RED = 0;
+//const short int BLACK = 1;
 
 template <class x> class RedBlack : public BalanceTree<x>
 {
@@ -12,7 +20,8 @@ template <class x> class RedBlack : public BalanceTree<x>
 protected:
 
 	// color of tree
-	short int color;
+	//short int color;
+	Color color;
 
 	// parent of the tree
 	RedBlack<x>* parent;
@@ -35,9 +44,11 @@ protected:
 
 		Left()->zag();
 
-		Color(RED);
+		//Color(RED);
+		color = RED;
 
-		Left()->Color(BLACK);
+		//Left()->Color(BLACK);
+
 
 		zig();
 	}
@@ -93,6 +104,42 @@ protected:
 		RedRule();
 	}
 
+	void remove(bool& blackRule, const x& element)
+	{
+		// if this is greater than element insert left
+		if (*this > element) Left()->remove(blackRule, element);
+
+		// else if this is less than element go right
+		else if (*this < element) Right()->remove(blackRule, element);
+
+		// else this = element
+		else if (*this == element)
+		{
+			// case 1, left and right are empty, destroy this tree
+			if (Left()->Empty() && Right()->Empty())
+			{
+				// if the node is black we are changing the black height and this must be
+				// dealt with
+				if (color == BLACK) blackRule = false;
+				
+				// delete and null left, right, and root
+				delete root;
+				//delete left;
+				//delete right;
+				
+				root = NULL;
+				left = NULL;
+				right = NULL;
+			}
+		}
+		else
+		{
+			cout << "ELEMENT NOT FOUND\n";
+		}
+
+
+	}
+
 	// apply red condition
 	void RedRule()
 	{
@@ -146,13 +193,8 @@ protected:
 				// this equal parent left, left left violation
 				else if (*this == parent->Left())
 				{
-					Color(BLACK);
-					grandparent->Color(RED);
 					grandparent->zig();
 				}
-
-				
-
 			}
 
 			// else if we are grandparent right
@@ -161,21 +203,15 @@ protected:
 				// this equal parent right, right left violation
 				if (*this == parent->Left())
 				{
-					parent->zagzig();
+					grandparent->zagzig();
 				}
 
 				// this equal parent right,  violation
-				if (*this == parent->Right())
+				else if (*this == parent->Right())
 				{
-					Color(BLACK);
-					grandparent->Color(RED);
 					grandparent->zag();
 				}
-
-
 			}
-
-			grandparent->RedRule();
 
 		} 
 		else return;
@@ -325,16 +361,22 @@ protected:
 		*/
 	}
 
+	// apply black condition
+	void BlackRule()
+	{
+		
+	}
+
 public:
 
 	// get color
-	int Color()
+	enum Color Color()
 	{
 		return color;
 	}
 
 	// set color
-	void Color(int color)
+	void Color(enum Color color)
 	{
 		this->color = color;
 
@@ -422,6 +464,13 @@ public:
 		}
 	}
 
+	// get sibling
+	RedBlack<x>* Sibling()
+	{
+		if (parent == NULL) return NULL;
+		else if (*this == parent->Left()) return parent->Right();
+		else return parent->Left()
+	}
 
 	// insert
 	void Insert(const x& element)
@@ -429,8 +478,16 @@ public:
 		insert(element);
 	}
 
+	// remove
+	void Remove(const x& element)
+	{
+		bool blackRule = true;
+
+		remove(blackRule, element);
+	}
+
 	// color equality operator
-	bool operator== (int color)
+	bool operator== (enum Color color)
 	{
 		if (this->color == color) return true;
 		else return false;
@@ -440,7 +497,14 @@ public:
 	bool operator== (RedBlack<x>* tree)
 	{
 		if (tree == NULL || (tree->Empty() && !Empty())) return false;
-		else if (Root() == tree->Root()) return true;
+		else if (*root == tree->Root()) return true;
+		else return false;
+	}
+
+	// test value equality
+	bool operator== (const x& data)
+	{
+		if (!Empty()) return *root == data;
 		else return false;
 	}
 
