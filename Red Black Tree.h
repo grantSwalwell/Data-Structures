@@ -47,7 +47,7 @@ protected:
 		//Color(RED);
 		color = RED;
 
-		//Left()->Color(BLACK);
+		Left()->Color(BLACK);
 
 
 		zig();
