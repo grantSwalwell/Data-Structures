@@ -44,11 +44,9 @@ protected:
 
 		Left()->zag();
 
-		//Color(RED);
 		color = RED;
 
 		Left()->Color(BLACK);
-
 
 		zig();
 	}
@@ -106,11 +104,20 @@ protected:
 
 	void remove(bool& blackRule, const x& element)
 	{
+		// if this is empty return
+		if (Empty()) return;
+
 		// if this is greater than element insert left
-		if (*this > element) Left()->remove(blackRule, element);
+		else if (*this > element)
+		{
+			Left()->remove(blackRule, element);
+		}
 
 		// else if this is less than element go right
-		else if (*this < element) Right()->remove(blackRule, element);
+		else if (*this < element)
+		{
+			Right()->remove(blackRule, element);
+		}
 
 		// else this = element
 		else if (*this == element)
@@ -130,6 +137,40 @@ protected:
 				root = NULL;
 				left = NULL;
 				right = NULL;
+			}
+
+			// case 2, right subtree empty
+			else if (!Left()->Empty() && Right()->Empty())
+			{
+				if (*this == BLACK && *Left() == RED) Left()->Color(BLACK);
+
+				//copy(Left());
+
+				*this = *Left();
+			}
+
+			// case 2, left subtree empty
+			else if (Left()->Empty() && !Right()->Empty())
+			{
+				if (*this == BLACK && *Right() == RED) Right()->Color(BLACK);
+
+				copy(Right());
+			}
+
+			// case 3, two non empty trees
+			else if (!Left()->Empty() && !Right()->Empty())
+			{
+				RedBlack<x>* succ = Right();
+
+				// get inorder successor
+				while (!succ->Left()->Empty())
+				{
+					succ = succ->Left();
+				}
+
+				root = new x(succ->Root());
+
+				Right()->remove(blackRule, succ->Root());
 			}
 		}
 		else
@@ -361,10 +402,137 @@ protected:
 		*/
 	}
 
-	// apply black condition
+
 	void BlackRule()
 	{
+		// CASE 1: This has one subtree, if this is black and subtree red,
+		// set subtree to black
+		if (*this == BLACK && *Left() == RED) Left()->Color(BLACK);
 		
+		// still case 1
+		else if (*this == BLACK && *Right() == RED) Right()->Color(BLACK);
+
+		// CASE 2: red sibling, switch parent and sibling colors than rotate left or right
+		else if (*Sibling() == RED)
+		{
+			parent->Color(RED);
+			Sibling()->Color(BLACK);
+		}
+
+	}
+
+
+	void BlackRule(int CASE)
+	{
+
+
+		switch (CASE)
+		{
+			
+			case CASE = 1:
+			{
+				
+			}
+
+
+			// CASE 2: Sibling is red, switch sibling and parent colors and rotate
+			case CASE = 2:
+			{
+				if (*Sibling() == RED)
+				{
+					parent->Color(RED);
+					Sibling()->Color(BLACK);
+
+					if ()
+				}
+			}
+
+			// CASE 3: Sibling is red, switch sibling and parent colors and rotate
+			case CASE = 3:
+			{
+
+			}
+
+
+
+		}
+
+
+
+	}
+
+
+
+	// apply black condition
+	void BlackRuleLeft(bool& blackRule)
+	{
+		// if blackRule is true return
+		if (blackRule) return;
+
+		// if left is red color it black
+		if (*Left() == RED)
+		{
+			*Left() = BLACK;
+			blackRule = true;
+			return;
+		}
+
+		// if this is red child must be black
+		// switch child/parent colors, if we had red red subtrees zag
+		if (*this == RED)
+		{
+			color = BLACK;
+
+			Right()->Color(RED);
+
+			// If both of rights children are red zag to move one over to left
+			if (*Right()->Left() == RED && *Right()->Right() == RED) zag();
+
+			// call red rule
+			RedRule();
+
+			blackRule = true;
+
+			return;
+		}
+
+		// if right is black and its children red zag after setting right to red
+		// call red rule
+		if (*Right() == BLACK)
+		{
+			Right()->Color(RED);
+
+			if (*Right()->Left() == RED && *Right()->Right() == RED)
+			{
+				zag();
+			}
+
+			RedRule();
+
+			if (*this == RED)
+			{
+				color = BLACK;
+				blackRule = true;
+			}
+
+			return;
+		}
+		
+		
+	}
+
+	void BlackRuleRight(bool& blackRule)
+	{
+		// if blackRule is true return
+		if (blackRule) return;
+
+		// if left is red color it black
+		if (*Right() == RED)
+		{
+			*Right() = BLACK;
+			blackRule = true;
+			return;
+		}
 	}
 
 public:
@@ -511,11 +679,21 @@ public:
 	// assignment operator
 	RedBlack<x>& operator=(RedBlack<x>& tree)
 	{
-		this->color = tree->Color();
-		(*this->root) = tree->Root();
-		this->left = tree->Left();
-		this->right = tree->Right();
-		this->parent = tree->Parent();
+		this->color = tree.Color();
+		(*this->root) = tree.Root();
+		this->left = tree.Left();
+		this->right = tree.Right();
+		this->parent = tree.Parent();
+
+		return *this;
+	}
+
+	// assignment operator for color
+	RedBlack<x>& operator=(enum Color color)
+	{
+		this->color = color;
+
+		return *this;
 	}
 
 	// default constructor
