@@ -142,7 +142,7 @@ protected:
 			// case 2, right subtree empty
 			else if (!Left()->Empty() && Right()->Empty())
 			{
-				if (*this == BLACK && *Left() == RED) Left()->Color(BLACK);
+				//if (*this == BLACK && *Left() == RED) Left()->Color(BLACK);
 
 				BlackRule();
 
@@ -154,7 +154,7 @@ protected:
 			// case 2, left subtree empty
 			else if (Left()->Empty() && !Right()->Empty())
 			{
-				if (*this == BLACK && *Right() == RED) Right()->Color(BLACK);
+				//if (*this == BLACK && *Right() == RED) Right()->Color(BLACK);
 
 				BlackRule();
 
@@ -471,7 +471,7 @@ protected:
 					sibling->Left()->Color(BLACK);
 
 					// zig sibling
-					sibling->zag();
+					sibling->zig();
 				}
 				else if (*this == parent->Right() &&
 					*sibling->Left() == BLACK &&
@@ -482,7 +482,7 @@ protected:
 
 					sibling->Right()->Color(BLACK);
 
-					sibling->zig();
+					sibling->zag();
 				}
 			}
 		}
