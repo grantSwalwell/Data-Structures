@@ -144,9 +144,11 @@ protected:
 			{
 				if (*this == BLACK && *Left() == RED) Left()->Color(BLACK);
 
-				//copy(Left());
+				BlackRule();
 
-				*this = *Left();
+				copy(Left());
+
+				
 			}
 
 			// case 2, left subtree empty
@@ -154,7 +156,11 @@ protected:
 			{
 				if (*this == BLACK && *Right() == RED) Right()->Color(BLACK);
 
+				BlackRule();
+
 				copy(Right());
+
+				
 			}
 
 			// case 3, two non empty trees
@@ -171,6 +177,8 @@ protected:
 				root = new x(succ->Root());
 
 				Right()->remove(blackRule, succ->Root());
+
+			//	BlackRule();
 			}
 		}
 		else
@@ -405,6 +413,9 @@ protected:
 
 	void BlackRule()
 	{
+		// get pointer to sibling
+		RedBlack<x>* sibling = Sibling();
+
 		// CASE 1: This has one subtree, if this is black and subtree red,
 		// set subtree to black
 		if (*this == BLACK && *Left() == RED) Left()->Color(BLACK);
@@ -412,54 +423,74 @@ protected:
 		// still case 1
 		else if (*this == BLACK && *Right() == RED) Right()->Color(BLACK);
 
-		// CASE 2: red sibling, switch parent and sibling colors than rotate left or right
-		else if (*Sibling() == RED)
-		{
-			parent->Color(RED);
-			Sibling()->Color(BLACK);
-		}
-
-	}
-
-
-	void BlackRule(int CASE)
-	{
-
-
-		switch (CASE)
-		{
-			
-			case CASE = 1:
+		// check for null
+		else if (sibling != NULL)
+		{			
+			// CASE 2: red sibling, switch parent and sibling colors than rotate left or right
+			if (*sibling == RED)
 			{
-				
+				parent->Color(RED);
+				sibling->Color(BLACK);
+
+				// if we are left of parent zig, if we are right zag
+			//	if (*this == parent->Left()) parent->zig();
+				else parent->zag();
 			}
 
+			// check if empty
+			else if (sibling->Empty()) return;
 
-			// CASE 2: Sibling is red, switch sibling and parent colors and rotate
-			case CASE = 2:
+			// CASE 3: Black sibling, black parent, black newphews, repaint sibling red
+			else if (*sibling == BLACK && *parent == BLACK &&
+				*sibling->Left() == BLACK	&& *sibling->Right() == BLACK)
 			{
-				if (*Sibling() == RED)
-				{
-					parent->Color(RED);
-					Sibling()->Color(BLACK);
+				*sibling = RED;
+				parent->BlackRule();
+			}
 
-					if ()
+			// CASE 4: Red parent, black sibling, black newphews
+			else if (*parent == RED && *sibling == RED && *sibling->Left() == BLACK
+				&& *sibling->Right() == BLACK)
+			{
+				*sibling = RED;
+				*parent = BLACK;
+			}
+
+			// CASE 5: Black sibling, red newphew, rotate nephew to be where sibling is
+			else if (*sibling == BLACK)
+			{
+				// if this is left
+				if (*this == parent->Left() &&
+					*sibling->Right() == BLACK &&
+					*sibling->Left() == RED)
+				{
+					// set sibling to red
+					sibling->Color(RED);
+
+					// set sibling left to black
+					sibling->Left()->Color(BLACK);
+
+					// zig sibling
+					sibling->zag();
+				}
+				else if (*this == parent->Right() &&
+					*sibling->Left() == BLACK &&
+					*sibling->Right() == RED)
+				{
+					// same procedure but with zag
+					sibling->Color(RED);
+
+					sibling->Right()->Color(BLACK);
+
+				//	sibling->zig();
 				}
 			}
-
-			// CASE 3: Sibling is red, switch sibling and parent colors and rotate
-			case CASE = 3:
-			{
-
-			}
-
-
-
 		}
 
-
-
 	}
+
+
+
 
 
 
@@ -636,8 +667,17 @@ public:
 	RedBlack<x>* Sibling()
 	{
 		if (parent == NULL) return NULL;
-		else if (*this == parent->Left()) return parent->Right();
-		else return parent->Left()
+
+		
+		if (parent->Left() == this)
+		{
+			return parent->Right();
+		}
+		if (parent->Right() == this)
+		{
+			return parent->Left();
+		}
+
 	}
 
 	// insert
@@ -664,8 +704,10 @@ public:
 	// test for root equality
 	bool operator== (RedBlack<x>* tree)
 	{
-		if (tree == NULL || (tree->Empty() && !Empty())) return false;
-		else if (*root == tree->Root()) return true;
+		if (!Empty() && tree->Empty()) return false;
+
+		if (Empty() && tree->Empty()) return true;
+		else if (!Empty() && !tree->Empty() && *root == tree->Root()) return true;
 		else return false;
 	}
 
