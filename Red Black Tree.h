@@ -433,8 +433,8 @@ protected:
 				sibling->Color(BLACK);
 
 				// if we are left of parent zig, if we are right zag
-			//	if (*this == parent->Left()) parent->zig();
-				else parent->zag();
+				if (*this == parent->Left()) parent->zag();
+				else parent->zig();
 			}
 
 			// check if empty
@@ -482,7 +482,7 @@ protected:
 
 					sibling->Right()->Color(BLACK);
 
-				//	sibling->zig();
+					sibling->zig();
 				}
 			}
 		}
