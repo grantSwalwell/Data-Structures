@@ -148,6 +148,8 @@ protected:
 
 				copy(Left());
 
+				//BlackRule();
+
 				
 			}
 
@@ -159,6 +161,8 @@ protected:
 				BlackRule();
 
 				copy(Right());
+
+				//BlackRule();
 
 				
 			}
@@ -178,7 +182,7 @@ protected:
 
 				Right()->remove(blackRule, succ->Root());
 
-			//	BlackRule();
+				//BlackRule();
 			}
 		}
 		else
@@ -471,7 +475,7 @@ protected:
 					sibling->Left()->Color(BLACK);
 
 					// zig sibling
-					sibling->zig();
+					sibling->zag();
 				}
 				else if (*this == parent->Right() &&
 					*sibling->Left() == BLACK &&
@@ -482,9 +486,36 @@ protected:
 
 					sibling->Right()->Color(BLACK);
 
-					sibling->zag();
+					sibling->zig();
+				}
+
+				// CASE 6: Black right sibling with red right child or left with red left
+				else if (*this == parent->Left() &&	*sibling->Right() == RED)
+				{
+					// set sibling to parents color, set parent to black
+					*sibling = parent->Color();
+					*parent = BLACK;
+
+					// set sibling right to black
+					sibling->Right()->Color(BLACK);
+
+					// call zag
+					parent->zig();
+				}
+				else if (*this == parent->Right() && *sibling->Left() == RED)
+				{
+					// set sibling to parents color, set parent to black
+					*sibling = parent->Color();
+					*parent = BLACK;
+
+					// set sibling left to black 
+					sibling->Left()->Color(BLACK);
+
+					// call zig
+					parent->zag();
 				}
 			}
+
 		}
 
 	}
