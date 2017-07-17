@@ -550,22 +550,25 @@ public:
 		if (root != NULL)
 		{
 			delete root;
+			root = NULL;
 		};
 		
-		root = NULL;
+		
 
 		if (left != NULL)
 		{
 			delete left;
+			left = NULL;
 		};
 
-		left = NULL;
+		
 
 		if (right != NULL)
 		{
 			delete right;
+			right = NULL;
 		};
 
-		right = NULL;
+		
 	};
 };
