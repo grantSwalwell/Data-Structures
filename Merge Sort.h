@@ -6,7 +6,7 @@ using namespace std;
 // merge O(a + b), merges two sorted arrays into one larger sorted array
 Array<int> merge(Array<int>& a, Array<int>& b)
 {
-	Array<int> c(a.size + b.size); // temporary combined array
+	Array<int> c(a.Size() + b.Size()); // temporary combined array
 
 	int i = 0;
 	int j = 0;
@@ -16,20 +16,20 @@ Array<int> merge(Array<int>& a, Array<int>& b)
 	// pick smaller of a0/a1 and b0/b1 to c1
 
 	// while a and b arent fully copied
-	while (i < a.size && i < b.size)
+	while (i < a.Size() && i < b.Size())
 	{
 		if (a[i] < b[j]) c[k++] = a[i++];
 		else c[k++] = b[j++];
 	}
 
 	// while a isn't fully copied
-	while (i < a.size)
+	while (i < a.Size())
 	{
 		c[k++] = a[i++];
 	}
 
 	// while b isn't fully copied
-	while (j < b.size)
+	while (j < b.Size())
 	{
 		c[k++] = b[j++];
 	}
@@ -41,7 +41,7 @@ Array<int> merge(Array<int>& a, Array<int>& b)
 void merge(Array<int>& data, int left, int mid, int right)
 {
 	// sorted array
-	Array<int>* sorted = new Array<int>(data.size); // temporary combined array
+	Array<int>* sorted = new Array<int>(data.Size()); // temporary combined array
 
 													// indexes
 	int i = left;

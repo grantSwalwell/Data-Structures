@@ -35,6 +35,13 @@ protected:
 
 public:
 
+	// return size
+	int Size()
+	{
+		return size;
+	}
+
+	// find an element in a sorted array
 	int binarySearch(x find, int left, int right)
 	{
 		// the result
