@@ -1,5 +1,5 @@
 # Data-Structures
-Code from Data Structures Spring 2017 and the following year.
+Code from Data Structures Spring 2017 and the following year. Series of various algorithms and data structures in c++ header files. In the future I hope to add information about each algorithm. 
 
 Array - Class encapsulating a primitive c++ array
 
