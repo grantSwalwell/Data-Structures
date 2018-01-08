@@ -4,10 +4,9 @@ Code from Data Structures Spring 2017 and the following year. Series of various 
 Array - Class encapsulating a primitive c++ array
 
 Graphs:
-  
-  Adjacency Matrix
-  Bit Adjacency Matrix
-  Adjacency List
+    Adjacency Matrix
+    Bit Adjacency Matrix
+    Adjacency List
 
 Hashing: 
 
