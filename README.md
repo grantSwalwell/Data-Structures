@@ -3,62 +3,26 @@ Code from Data Structures Spring 2017 and the following year. Series of various 
 
 Array - Class encapsulating a primitive c++ array
 
-Graphs:
-    Adjacency Matrix
-    Bit Adjacency Matrix
-    Adjacency List
+Graphs: Adjacency Matrix, Bit Adjacency Matrix, Adjacency List
 
-Hashing: 
-
-  Array Hash Table / Abstract Hash Table - incomplete
+Hashing: Abstract Hash Table - incomplete
   
-Heaps:
-
-  Abstract Heap
-  Min Heap
-  Max Heap
+Heaps: Abstract Heap, Min Heap, Max Heap
 
 Linked List - pointer implementation
 
 Matrix - 2d array class
 
-Queue:
+Queue: Array implementation, Circular Array implementation, Linked List implementation
   
-  Array implementation 
-  Circular Array implementation
-  Linked List implementation
-  
-Searching:
-  
-  Binary Search
-  Depth First Search
-  Breadth First Search
+Searching: Binary Search, Depth First Search, Breadth First Search, Uniform Cost Search
 
-Sorting:
-  
-  Bucket Sort
-  Insertion Sort
-  Selection Sort
-  Radix Sort
-  Heap Sort
-  Merge Sort
+Sorting: Bucket Sort, Insertion Sort, Selection Sort, Radix Sort, Heap Sort, Merge Sort
 
-Stack:
-  
-  Array Stack implementation 
-  Linked List Stack implementation
+Stack: Array Stack implementation, Linked List Stack implementation
   
 String class - array implementation
 
-Trees:
-  
-  Array Binary Search Tree
-  Array Binary Tree
-  AVL Tree
-  Abstract Balance Tree
-  Binary Search Tree 
-  Binary Tree
-  Red Black Tree - 90% working
-  TreeVisualizer - boring
+Trees: Array Binary Search Tree, Array Binary Tree, AVL Tree, Abstract Balance Tree, Binary Search Tree, Binary Tree, Red Black Tree
  
 Vector - extends Array class
