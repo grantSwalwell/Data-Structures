@@ -54,4 +54,4 @@ Trees:
     Binary Tree
     Red Black Tree <- mostly complete but possibly incomplete for a case of remove()
  
-Vector - extends Array class
+Vector - extends Array class.
