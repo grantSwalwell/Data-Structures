@@ -33,7 +33,7 @@ To create a linked list queue just
     queue->dequeue()
     queue->peak()
     
- you can also peak at the front and back
+ you can also get the index of the front and back
  
     queue->front()
     queue->back()
