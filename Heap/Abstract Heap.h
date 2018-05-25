@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Array.h"
+#include "Array\Array.h"
 
 // Implementation of a priority tree with an array
 // I would have used array binary tree but I had to make that one

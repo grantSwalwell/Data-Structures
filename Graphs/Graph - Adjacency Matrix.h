@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Matrix.h"
+#include "Matrix\Matrix.h"
 
 
 class Graph
@@ -87,7 +87,7 @@ public:
 	}
 
 	// turns an edge on               <----------------------------------------- TAKES PLACE OF ADD EDGE 
-	void on(int  node0, int node1)
+	void on(int node0, int node1)
 	{
 		// check to make sure we are adding edges for nodes that exist and edges that do not
 		if (edge(node0, node1))

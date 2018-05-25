@@ -16,6 +16,18 @@ protected:
 
 public:
 
+	// get size
+	int Size()
+	{
+		return this->size;
+	}
+
+	// get max
+	int Max()
+	{
+		return this->max;
+	}
+
 	// insert value into heap
 	void Insert(x& data)
 	{

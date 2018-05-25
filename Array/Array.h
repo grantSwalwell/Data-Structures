@@ -18,8 +18,7 @@ protected:
 	// data of the array
 	x* data;
 
-	// array size
-	int size;
+
 
 	// print method
 	virtual ostream& print(ostream& os)
@@ -34,6 +33,9 @@ protected:
 	};
 
 public:
+
+	// array size
+	int size;
 
 	// return size
 	int Size()

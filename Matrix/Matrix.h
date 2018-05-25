@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Array.h"
+#include "Array\Array.h"
 // matrix class
 
 template<class x> class Matrix
