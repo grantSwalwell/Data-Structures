@@ -3,40 +3,44 @@ Code from Data Structures Spring 2016 and the following years (mostly after the 
 
 Array - Class encapsulating a primitive c++ array
 
-Graphs: 
+#Graphs: 
 
     Adjacency Matrix
     Bit Adjacency Matrix
     Adjacency List
 
-Hashing:
+#Hashing:
 
     Abstract Hash Table - incomplete
   
-Heaps: 
+#Heaps: 
 
     Abstract Heap
     Min Heap
     Max Heap
 
-Linked List - pointer implementation
+#Linked List 
 
-Matrix - 2d array class
+    Pointer implementation
 
-Queue:
+#Matrix 
+    
+    Array of Array classes
+
+#Queue:
 
     Array implementation
     Circular Array implementation
     Linked List implementation
   
-Searching: 
+#Searching: 
 
     Binary Search
     Depth First Search
     Breadth First Search
     Uniform Cost Search
 
-Sorting:
+#Sorting:
 
     Bucket Sort
     Insertion Sort
@@ -45,14 +49,16 @@ Sorting:
     Heap Sort
     Merge Sort
 
-Stack:
+#Stack:
 
     Array Stack implementation
     Linked List Stack implementation
   
-String class - array implementation
+#String class 
 
-Trees: 
+    Array implementation
+
+#Trees: 
 
     Array Binary Search Tree
     Array Binary Tree
