@@ -1,46 +1,48 @@
 # Data-Structures
 Code from Data Structures Spring 2016 and the following years (mostly after the class). Series of various algorithms and data structures in c++ header files. In the future I hope to add information about each algorithm. 
 
-Array - Class encapsulating a primitive c++ array
+# Array 
 
-#Graphs: 
+    Class encapsulating a primitive c++ array
+
+# Graphs 
 
     Adjacency Matrix
     Bit Adjacency Matrix
     Adjacency List
 
-#Hashing:
+# Hashing
 
     Abstract Hash Table - incomplete
   
-#Heaps: 
+# Heaps 
 
     Abstract Heap
     Min Heap
     Max Heap
 
-#Linked List 
+# Linked List 
 
     Pointer implementation
 
-#Matrix 
+# Matrix 
     
     Array of Array classes
 
-#Queue:
+# Queue
 
     Array implementation
     Circular Array implementation
     Linked List implementation
   
-#Searching: 
+# Searching 
 
     Binary Search
     Depth First Search
     Breadth First Search
     Uniform Cost Search
 
-#Sorting:
+# Sorting
 
     Bucket Sort
     Insertion Sort
@@ -49,16 +51,16 @@ Array - Class encapsulating a primitive c++ array
     Heap Sort
     Merge Sort
 
-#Stack:
+# Stack
 
     Array Stack implementation
     Linked List Stack implementation
   
-#String class 
+# String 
 
     Array implementation
 
-#Trees: 
+# Trees 
 
     Array Binary Search Tree
     Array Binary Tree
@@ -67,5 +69,7 @@ Array - Class encapsulating a primitive c++ array
     Binary Search Tree
     Binary Tree
     Red Black Tree <- mostly complete but possibly incomplete for a case of remove()
- 
-Vector - extends Array class.
+    
+# Vector 
+    
+    Extends Array class.
