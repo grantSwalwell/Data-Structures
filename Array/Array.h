@@ -6,6 +6,8 @@ using namespace std;
 class ArrayException : public exception {};
 // array bounds exception
 class ArrayIndexException : public ArrayException {} indexException;
+// array size mismatch
+class ArrayDimensionException : public ArrayException {} dimensionException;
 
 // Array data structure, template of class type X
 template<class X> class Array
@@ -185,4 +187,35 @@ public:
 		data = NULL;
 	};
 };
+
+
+// ARRAY ADDITION OPERATOR
+
+template <class X> Array<X>& operator+(Array<X>& A, Array<X>& B) throw()
+{
+	try 
+	{
+		// check for dimension mismatch
+
+		if (A.Size() != B.Size()) throw dimensionException;
+
+		// Allocate new array
+
+		Array<X>* C = new Array<X>(A.Size());
+
+		// add up A and B
+
+		for (int i = 0; i < C->Size(); i++) (*C)[i] = A[i] + B[i];
+
+		// dereference and return C
+
+		return *C;
+	}
+	catch(ArrayDimensionException e)
+	{
+		cout << "DIMENSION MISMATCH" << endl;
+	}
+}
+
+
 
