@@ -100,21 +100,24 @@ public:
 
 	Array& operator= (Array& right)
 	{
-		// copy over the new size
+		if (size != right.Size())
+		{
+			// copy over the new size
 
-		size = right.Size();
-		
-		// if the old array is allocated delete it
+			size = right.Size();
 
-		if (data != NULL) delete[] data;
+			// if the old array is allocated delete it
 
-		// allocate new size
+			if (data != NULL) delete[] data;
 
-		data = new X[size];
+			// allocate new size
+
+			data = new X[size];
+		}
 
 		// copy over new array
 
-		for (int i = 0; i < this->size; i++) this->data[i] = right[i];
+		for (int i = 0; i < size; i++) data[i] = right[i];
 
 		// return this
 
