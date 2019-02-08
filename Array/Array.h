@@ -217,5 +217,81 @@ template <class X> Array<X>& operator+(Array<X>& A, Array<X>& B) throw()
 	}
 }
 
+// PLUS EQUALS OPERATOR
+
+template <class X> Array<X>& operator+=(Array<X>& A, Array<X>& B) throw()
+{
+	try
+	{
+		// check for dimension mismatch
+
+		if (A.Size() != B.Size()) throw dimensionException;
+
+		// add up A and B
+
+		for (int i = 0; i < A.Size(); i++) A[i] += B[i];
+
+		// return A
+
+		return A;
+	}
+	catch (ArrayDimensionException e)
+	{
+		cout << "DIMENSION MISMATCH" << endl;
+	}
+}
+
+// MULTIPLICATION ELEMENT WISE OEPRATOR
+
+template <class X> Array<X>& operator*(Array<X>& A, Array<X>& B) throw()
+{
+	try
+	{
+		// check for dimension mismatch
+
+		if (A.Size() != B.Size()) throw dimensionException;
+
+		// Allocate new array
+
+		Array<X>* C = new Array<X>(A.Size());
+
+		// multiply A and B
+
+		for (int i = 0; i < C->Size(); i++) (*C)[i] = A[i] * B[i];
+
+		// dereference and return C
+
+		return *C;
+	}
+	catch (ArrayDimensionException e)
+	{
+		cout << "DIMENSION MISMATCH" << endl;
+	}
+}
+
+// TIMES EQUALS OPERATOR
+
+template <class X> Array<X>& operator*=(Array<X>& A, Array<X>& B) throw()
+{
+	try
+	{
+		// check for dimension mismatch
+
+		if (A.Size() != B.Size()) throw dimensionException;
+
+		// add up A and B
+
+		for (int i = 0; i < A.Size(); i++) A[i] = A[i] * B[i];
+
+		// dereference and return C
+
+		return A;
+	}
+	catch (ArrayDimensionException e)
+	{
+		cout << "DIMENSION MISMATCH" << endl;
+	}
+}
+
 
 

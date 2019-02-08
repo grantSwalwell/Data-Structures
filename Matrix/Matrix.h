@@ -148,3 +148,49 @@ public:
 	};
 
 };
+
+template <class X> Matrix<X>& operator+(Matrix<X>& A, Array<X>& B)
+{
+	try
+	{
+		if (A.Height() != B.Size()) throw dimensionException;
+
+		Matrix<X>* C = new Matrix<X>(A.Height(), A.Width());
+
+		for (int i = 0; i < A.Width(); i++)
+		{
+			for (int j = 0; j < A.Height(); j++) (*C)[j][i] = A[j][i] + B[j];
+		}
+
+		return *C;
+	}
+	catch (ArrayDimensionException e)
+	{
+		cout << "DIMENSION MISMATCH" << endl;
+	}
+}
+
+template <class X> Array<X>& operator*(Matrix<X>& A, Array<X>& B)
+{
+	try
+	{
+		if (A.Width() != B.Size()) throw dimensionException;
+
+		Array<X>* C = new Array<X>(A.Height());
+
+		// Need to initialize C
+
+		for (int i = 0; i < A.Height(); i++) (*C)[i] = A[i][0] * B[i];
+
+		for (int i = 0; i < A.Height(); i++)
+		{
+			for (int j = 1; j < A.Width(); j++) (*C)[i] += A[i][j] * B[j];
+		}
+
+		return *C;
+	}
+	catch (ArrayDimensionException e)
+	{
+		cout << "DIMENSION MISMATCH" << endl;
+	}
+}
