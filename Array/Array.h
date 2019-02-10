@@ -189,8 +189,6 @@ template <class X> int Array<X>::Index(const X& value)
 
 //////////////////// ARRAY MATH OPERATIONS ////////////////////
 
-template <class X> Array<X>& operator+(Array<X>& A, Array<X>& B);
-
 // ADDITION OPERATOR
 template <class X> Array<X>& operator+(Array<X>& A, Array<X>& B) throw()
 {
